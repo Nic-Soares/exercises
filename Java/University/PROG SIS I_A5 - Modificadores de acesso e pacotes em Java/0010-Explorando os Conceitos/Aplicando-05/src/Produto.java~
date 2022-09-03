@@ -1,0 +1,18 @@
+public class Produto {
+  int codigo;
+  String descricao;
+  private double preco;
+  private int quantidade;
+
+  public double calculaValor(){
+    return (quantidade*preco);
+  }
+
+  public void setPreco(double preco) {
+    this.preco = preco;
+  }
+
+  public void setQuantidade(int quantidade) {
+    this.quantidade = quantidade;
+  }
+}
