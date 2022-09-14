@@ -16,8 +16,46 @@ Saída
 Imprima todas as classificações do triângulo especificado na entrada.
 '''
 
-p1 = input().split()
+# p1 = input().split()
+# x1, x2, x3 = p1
 
-x1, x2, x3 = p1
+x1,x2,x3 = map(float,input().split())
+
+if(x1 < x2):
+    temp = x1
+    x1 = x2
+    x2 = temp
+
+if(x2 < x3):
+    temp = x2
+    x2 = x3
+    x3 = temp
+
+if(x1 < x2):
+    temp = x1
+    x1 = x2
+    x2 = temp
+
+if(x1 >= (x2 + x3)):
+    print("NAO FORMA TRIANGULO")
+
+elif(x1 * x1 == (x2 * x2 + x3 * x3)):
+     print("TRIANGULO RETANGULO")
+
+elif(x1 * x1 > (x2 * x2 + x3 * x3)):
+    print("TRIANGULO OBTUSANGULO")
+
+elif(x1 * x1 < (x2* x2 + x3 * x3)):
+    print("TRIANGULO ACUTANGULO")
+
+if(x1 == x2 and x2 == x3):
+    print("TRIANGULO EQUILATERO")
+        
+elif(x1 == x2 or x2 == x3):
+    print("TRIANGULO ISOSCELES")
+
+
+
+
 
 print(x1, x2, x3)
