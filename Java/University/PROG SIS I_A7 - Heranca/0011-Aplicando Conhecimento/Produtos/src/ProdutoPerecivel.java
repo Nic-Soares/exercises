@@ -6,17 +6,21 @@ public class ProdutoPerecivel extends Produto{
     this.validade = validade;
   }
 
-  void retiraEstoque(int validade){
-
+  public void retiraEstoque(int qtde){
+    if (validade>2)
+      quantidade-=qtde;
+    else
+      quantidade = 0;
   }
 
-  void entraEstoque(int qtde){
-
+  public void entraEstoque(int qtde){
+    if (quantidade == 0)
+      quantidade+=qtde;
   }
 
   @Override
   public String toString(){
-    return super.toString() + "\n";
+    return super.toString() + "\n" + validade;
   }
 
 }
