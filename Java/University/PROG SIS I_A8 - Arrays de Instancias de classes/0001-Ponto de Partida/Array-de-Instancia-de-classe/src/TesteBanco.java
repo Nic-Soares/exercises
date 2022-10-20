@@ -15,7 +15,7 @@ public class TesteBanco {
           String nome = input.next();
           System.out.println("Saldo inicial de conta:");
           double saldo = input.nextDouble();
-          if (nubank.maxConta) // problema
+          if (!TecBanco.criarConta((nome), saldo)) // problema
             System.out.println("\nBanco já atingiu o número maximo de contas!\n");
           break;
 

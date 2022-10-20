@@ -15,6 +15,7 @@ public class Banco {
       contas[numContas] = new ContaBancaria(correntista, saldoInicial);
 
       numContas++;
+      return true;
     }
     return false;
   }

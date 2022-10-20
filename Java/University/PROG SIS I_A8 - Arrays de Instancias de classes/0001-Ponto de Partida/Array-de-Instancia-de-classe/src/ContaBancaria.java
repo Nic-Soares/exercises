@@ -2,11 +2,6 @@ public class ContaBancaria {
   protected String nomeCorrentista;
   protected double saldo;
 
-  // Construtor
-  ContaBancaria(String nome){
-    nomeCorrentista = nome;
-  }
-
   // Construtor com outra assinatura
   ContaBancaria(String nome, double saldo){
     nomeCorrentista = nome;
