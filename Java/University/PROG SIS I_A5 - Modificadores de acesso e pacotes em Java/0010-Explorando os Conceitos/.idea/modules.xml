@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/0010-Explorando os Conceitos.iml" filepath="$PROJECT_DIR$/.idea/0010-Explorando os Conceitos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Clase Pessoa com atributos privados/Clase Pessoa com atributos privados.iml" filepath="$PROJECT_DIR$/Clase Pessoa com atributos privados/Clase Pessoa com atributos privados.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Classe Retangulo com atributos privados/Classe Retangulo com atributos privados.iml" filepath="$PROJECT_DIR$/Classe Retangulo com atributos privados/Classe Retangulo com atributos privados.iml" />
+    </modules>
+  </component>
+</project>
