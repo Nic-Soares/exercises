@@ -20,24 +20,51 @@ class Aluno{
 
   public String getDados() {
     DecimalFormat df = new DecimalFormat("#.00");
-    String dados = "Aluno: " + nome + "\nCurso: " + matricula.getCurso().getInfoCurso() + "\n";
-
-    if (matricula.isBolsista()) {
-      dados += "Bolsista com desconto de: " + matricula.getDesconto() + "%\n";
-      dados += "Mensalidade: R$ " + df.format(matricula.getMensalidadeComDesconto()) + "\n";
-    } else {
-      dados += "Mensalidade: R$ " + df.format(matricula.getMensalidade()) + "\n";
-    }
-
-    if (matricula.getCurso().isFinalizado()){
-      dados += "Curso finalizado em " + getMatricula().getCurso().getAnoConclusao() + "\n";
-    }
-
-    Trabalho trabalho = matricula.getCurso().getTrabalho();
-    if (trabalho != null) {
-      dados += trabalho.getInfoTrabalho() + "\n";
-    }
+    String dados = getInformacoesAluno() + getInformacoesMatricula(df) + getInformacoesCursoFinalizado() + getInformacoesTrabalho();
 
     return dados;
+  }
+
+  private String getInformacoesAluno() {
+    String aluno = "Aluno: ";
+    return aluno + nome;
+  }
+
+  private String getInformacoesMatricula(DecimalFormat df) {
+    String curso = "\nCurso: ";
+    String bolsistaComDesconto = "Bolsista com desconto de: ";
+    String mensalidade = "Mensalidade: R$ ";
+    String informacoes = curso + matricula.getCurso().getInfoCurso() + "\n";
+
+    if (matricula.isBolsista()) {
+      informacoes += bolsistaComDesconto + matricula.getDesconto() + "%\n";
+      informacoes += mensalidade + df.format(matricula.getMensalidadeComDesconto()) + "\n";
+    } else {
+      informacoes += mensalidade + df.format(matricula.getMensalidade()) + "\n";
+    }
+
+    return informacoes;
+  }
+
+  private String getInformacoesCursoFinalizado() {
+    String cursoFinalizado = "Curso finalizado em ";
+    String informacoes = "";
+
+    if (matricula.getCurso().isFinalizado()){
+      informacoes += cursoFinalizado + getMatricula().getCurso().getAnoConclusao() + "\n";
+    }
+
+    return informacoes;
+  }
+
+  private String getInformacoesTrabalho() {
+    Trabalho trabalho = matricula.getCurso().getTrabalho();
+    String informacoes = "";
+
+    if (trabalho != null) {
+      informacoes += trabalho.getInfoTrabalho() + "\n";
+    }
+
+    return informacoes;
   }
 }

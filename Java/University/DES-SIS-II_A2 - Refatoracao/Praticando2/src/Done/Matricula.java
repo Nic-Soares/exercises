@@ -14,10 +14,6 @@ class Matricula {
     this.curso = curso;
   }
 
-  public int getCodigo() {
-    return codigo;
-  }
-
   public boolean isBolsista() {
     return bolsista;
   }
