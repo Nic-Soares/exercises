@@ -1,5 +1,4 @@
 package Done;
-import java.text.DecimalFormat;
 
 class Matricula {
   private int codigo;
@@ -40,6 +39,26 @@ class Matricula {
     String mensalidade = String.format("Mensalidade: R$ %.2f", getMensalidade());
     return mensalidade;
   }
+  
+  public String getDadosCurso(String info) {
+    if (info.equals("nome")) {
+      return curso.getInfoNome();
+    } else if (info.equals("conclusao")) {
+      return curso.getInfoConclusao();
+    } else if (info.equals("trabalho")) {
+      return curso.getInfoTrabalho("trabalho");
+    }
+    return null;
+  }
+
+  public String getDadosBanca() {
+    if (getCurso().isTemTrabalho()) {
+      return curso.getTrabalho().getBanca().getInfoBanca();
+    }
+    return "";
+  }
+
+
 }
 
 

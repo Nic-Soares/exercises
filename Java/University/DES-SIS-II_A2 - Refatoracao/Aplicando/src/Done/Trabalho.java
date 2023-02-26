@@ -26,6 +26,10 @@ public class Trabalho{
     return nota;
   }
 
+  public Banca getBanca(){
+    return banca;
+  }
+
 
 }
 

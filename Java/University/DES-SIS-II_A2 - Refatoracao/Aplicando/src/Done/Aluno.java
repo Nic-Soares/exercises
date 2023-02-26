@@ -1,5 +1,4 @@
 package Done;
-import java.text.DecimalFormat;
 
 class Aluno {
   private String nome;
@@ -17,5 +16,30 @@ class Aluno {
 
   public Matricula getMatricula() {
     return matricula;
+  }
+
+  public String getInformacao() {
+    String informacao = getNome() + "\n";
+    informacao += getInfoCurso("nome") + "\n";
+    informacao += getInfoFinanceira() + "\n";
+    informacao += getInfoCurso("conclusao") + "\n";
+    informacao += getInfoCurso("trabalho") + "\n";
+    informacao += getInfoBanca();
+    return informacao;
+  }
+
+  public String getInfoCurso(String info) {
+    String conhecimentoCurso = matricula.getDadosCurso(info);
+    return conhecimentoCurso;
+  }
+
+  public String getInfoFinanceira() {
+    String conhecimentoFinanceiro = matricula.getInfoMatricula();
+    return conhecimentoFinanceiro;
+  }
+
+  public String getInfoBanca(){
+    String conhecimentoBanca = matricula.getDadosBanca();
+    return conhecimentoBanca;
   }
 }

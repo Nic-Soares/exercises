@@ -40,16 +40,43 @@ public class Curso {
     return nome;
   }
 
-  public String getInfoConclusao() {
-    String anoConclusao = String.format("Curso finalizado em %d", getAnoConclusao());
-    return anoConclusao;
+  public Trabalho getTrabalho(){
+    return trabalho;
   }
 
+  public String getInfoConclusao() {
+    if (finalizado) {
+      String anoConclusao = String.format("Curso finalizado em %d", getAnoConclusao());
+      return anoConclusao;
+    }
+    return "Curso em andamento";
+  }
+
+
+
   public String getInfoTrabalho(String tipo){
-    if (tipo.equals("trabalho")) {
-      return String.format("Título da %s: %s",getNivel(),trabalho.getTitulo());
-    } else if (tipo.equals("orientador")) {
-      return "Orientador: Prof. " + trabalho.getOrientador();
+    if (temTrabalho) {
+      if (tipo.equals("trabalho")) {
+        String nivel = getNivel();
+        switch (nivel)
+        {
+          case "Graduação":
+            nivel = "TCC";
+            break;
+          case "Lato sensu":
+            nivel = "monografia: ";
+            break;
+          case "Mestrado":
+            nivel = "dissertação: ";
+            break;
+          case "Doutorado":
+            nivel = "tese: ";
+            break;
+          default:
+            return "";
+        }
+        return String.format("Título da %s: %s\nOrientador: Prof. %s", nivel, trabalho.getTitulo(), trabalho.getOrientador());
+      }
     }
     return "";
   }

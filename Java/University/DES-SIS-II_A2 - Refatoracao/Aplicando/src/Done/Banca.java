@@ -32,9 +32,9 @@ public class Banca {
 
   public String getInfoBanca() {
     if (professores.length == 2) {
-      return "Banca com 2 professores: " + getNomesProfessores();
+      return "Banca: " + getNomesProfessores();
     } else if (professores.length == 4) {
-      return "Banca com 4 professores: " + getNomesProfessores();
+      return "Banca: " + getNomesProfessores();
     } else {
       return "Banca inválida";
     }
