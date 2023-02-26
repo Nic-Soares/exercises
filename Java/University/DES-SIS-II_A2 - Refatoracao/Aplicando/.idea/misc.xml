@@ -4,7 +4,7 @@
     <option name="show" value="ASK" />
     <option name="description" value="" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="17 (WSL)" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/Aplicando/out" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
