@@ -22,7 +22,7 @@ class Aluno {
     String informacao = getNome() + "\n";
     informacao += getInfoCurso("nome") + "\n";
     informacao += getInfoFinanceira() + "\n";
-    informacao += getInfoCurso("conclusao") + "\n";
+    informacao += getInfoCurso("conclusao");
     informacao += getInfoCurso("trabalho") + "\n";
     informacao += getInfoBanca();
     return informacao;
