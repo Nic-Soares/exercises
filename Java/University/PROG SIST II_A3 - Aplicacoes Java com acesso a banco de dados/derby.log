@@ -1,0 +1,18 @@
+Mon Mar 06 20:24:05 BRT 2023 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
+----------------------------------------------------------------
+Mon Mar 06 20:24:05 BRT 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0186-b93d-4507-ffffbc27f4f2 
+on database directory C:\Users\Nicol\workspace\exercises\Java\University\PROG SIST II_A3 - Aplicacoes Java com acesso a banco de dados\empresa with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93 
+Loaded from file:/C:/Users/Nicol/GlassFish_Server/javadb/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=17.0.6+9-LTS-190
+user.dir=C:\Users\Nicol\GlassFish_Server\javadb
+os.name=Windows 11
+os.arch=amd64
+os.version=10.0
+derby.system.home=C:\Users\Nicol\workspace\exercises\Java\University\PROG SIST II_A3 - Aplicacoes Java com acesso a banco de dados
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Mon Mar 06 20:24:06 BRT 2023:
+Shutting down instance a816c00e-0186-b93d-4507-ffffbc27f4f2 on database directory C:\Users\Nicol\workspace\exercises\Java\University\PROG SIST II_A3 - Aplicacoes Java com acesso a banco de dados\empresa with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93 
+Mon Mar 06 20:24:06 BRT 2023 Thread[DRDAConnThread_2,5,main] (DATABASE = empresa), (DRDAID = {2}), Database 'empresa' shutdown.
