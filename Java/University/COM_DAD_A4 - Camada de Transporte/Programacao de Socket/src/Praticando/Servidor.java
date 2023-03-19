@@ -7,10 +7,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Servidor {
+  private static int porta = 12345;
   public static void main(String[] args) {
     try {
       // Cria um servidor na porta 12345
-      ServerSocket servidor = new ServerSocket(12345);
+      ServerSocket servidor = new ServerSocket(porta);
       System.out.println("Servidor iniciado na porta 12345");
 
       while (true) {
