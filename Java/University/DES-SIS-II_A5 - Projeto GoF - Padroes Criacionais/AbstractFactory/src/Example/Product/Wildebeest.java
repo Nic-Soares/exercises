@@ -1,6 +1,6 @@
-package Model.Product;
+package Example.Product;
 
-import Model.AbstractProduct.Herbivore;
+import Example.AbstractProduct.Herbivore;
 
 public class Wildebeest implements Herbivore {
   public void eat() {

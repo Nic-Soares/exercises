@@ -1,12 +1,12 @@
 // Implementação do padrão Abstract Factory em Java
 // Font: https://www.dofactory.com/net/abstract-factory-design-pattern
 
-package Model;
+package Example;
 
-import Model.AbstractFactory.ContinentFactory;
-import Model.Client.AnimalWorld;
-import Model.ConcreteFactory.AfricaFactory;
-import Model.ConcreteFactory.AmericaFactory;
+import Example.AbstractFactory.ContinentFactory;
+import Example.Client.AnimalWorld;
+import Example.ConcreteFactory.AfricaFactory;
+import Example.ConcreteFactory.AmericaFactory;
 public class Main {
   public static void main(String[] args) {
     ContinentFactory africafactory = new AfricaFactory();

@@ -1,7 +1,7 @@
-package Model.AbstractFactory;
+package Example.AbstractFactory;
 
-import Model.AbstractProduct.Herbivore;
-import Model.AbstractProduct.Carnivore;
+import Example.AbstractProduct.Herbivore;
+import Example.AbstractProduct.Carnivore;
 
 public abstract class ContinentFactory {
   public abstract Herbivore createHerbivore();

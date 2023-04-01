@@ -1,8 +1,8 @@
-package Model.Client;
+package Example.Client;
 
-import Model.AbstractFactory.ContinentFactory;
-import Model.AbstractProduct.Carnivore;
-import Model.AbstractProduct.Herbivore;
+import Example.AbstractFactory.ContinentFactory;
+import Example.AbstractProduct.Carnivore;
+import Example.AbstractProduct.Herbivore;
 
 public class AnimalWorld {
   private Herbivore herbivore;
