@@ -1,4 +1,4 @@
-package Incorrect;
+package Practicing.Incorrect;
 
 public class TesteSingletonIncorrect {
   public static void main(String[] args) {

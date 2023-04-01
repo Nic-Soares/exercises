@@ -1,4 +1,4 @@
-package Correct;
+package Practicing.Correct;
 
 public class Superpadrãozinho {
   private static Superpadrãozinho instancia; // variável estática privada que armazena a única instância da classe

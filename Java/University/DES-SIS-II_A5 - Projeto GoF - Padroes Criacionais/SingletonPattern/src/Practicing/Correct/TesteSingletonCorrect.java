@@ -1,4 +1,4 @@
-package Correct;
+package Practicing.Correct;
 
 public class TesteSingletonCorrect {
   public static void main(String[] args) {
