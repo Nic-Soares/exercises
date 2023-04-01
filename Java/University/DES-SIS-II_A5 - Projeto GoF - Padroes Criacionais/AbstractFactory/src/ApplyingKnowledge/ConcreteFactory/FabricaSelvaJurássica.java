@@ -9,7 +9,16 @@ import ApplyingKnowledge.Product.Serpente;
 import ApplyingKnowledge.Product.TRex;
 
 public class FabricaSelvaJurássica extends FabricaCenario {
+  private static FabricaSelvaJurássica instace = null;
 
+  private FabricaSelvaJurássica(){}
+
+  public static  FabricaSelvaJurássica getInstance(){
+    if (instace == null){
+      instace = new FabricaSelvaJurássica();
+    }
+    return instace;
+  }
   public AnimalPerigoso createAnimalPerigoso() {
     return new TRex();
   }

@@ -8,15 +8,15 @@ import ApplyingKnowledge.ConcreteFactory.FabricaSelvaJurássica;
 
 public class Main {
   public static void main(String[] args) {
-    FabricaCenario fabricaDeserto = new FabricaDeserto();
+    FabricaCenario fabricaDeserto = FabricaDeserto.getInstance();
     MundoAnimal mundoDeserto = new MundoAnimal(fabricaDeserto);
     mundoDeserto.runAnimalFeatures();
 
-    FabricaCenario fabricaSelva = new FabricaSelvaJurássica();
+    FabricaCenario fabricaSelva = FabricaSelvaJurássica.getInstance();
     MundoAnimal mundoSelva = new MundoAnimal(fabricaSelva);
     mundoSelva.runAnimalFeatures();
 
-    FabricaCenario fabricaOceano = new FabricaFundoOceano();
+    FabricaCenario fabricaOceano = FabricaFundoOceano.getInstance();
     MundoAnimal mundoOceano = new MundoAnimal(fabricaOceano);
     mundoOceano.runAnimalFeatures();
   }
