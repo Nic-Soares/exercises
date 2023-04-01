@@ -1,4 +1,4 @@
-package Practicing;
+package PracticingV1;
 
 // Implementação da fábrica de animais para o cenário da selva jurássica
 public class FabricaAnimaisSelvaJurassica implements FabricaAnimais {
