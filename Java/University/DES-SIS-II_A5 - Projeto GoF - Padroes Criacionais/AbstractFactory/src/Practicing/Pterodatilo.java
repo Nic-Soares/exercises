@@ -1,3 +1,5 @@
+package Practicingn;
+
 // Implementação do Pterodátilo, que é um animal de transporte da selva jurássica
 public class Pterodatilo implements AnimalTransporte {
   public void cavalgar() {
