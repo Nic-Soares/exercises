@@ -1,6 +1,6 @@
 package ApplyingKnowledge.Product;
 
-import PratictingV2.AbstractProduct.AnimalTransporte;
+import ApplyingKnowledge.AbstractProduct.AnimalTransporte;
 
 public class Pterodátilo implements AnimalTransporte {
   public void transporting(){

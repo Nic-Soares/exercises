@@ -1,20 +1,20 @@
 package ApplyingKnowledge.ConcreteFactory;
 
+import ApplyingKnowledge.Product.CavaloMarinho;
+import ApplyingKnowledge.Product.TubarãoBranco;
 import ApplyingKnowledge.AbstractFactory.FabricaCenario;
 import ApplyingKnowledge.AbstractProduct.AnimalPerigoso;
 import ApplyingKnowledge.AbstractProduct.AnimalTransporte;
-import ApplyingKnowledge.Product.Dromedário;
 import ApplyingKnowledge.Product.Pterodátilo;
-import ApplyingKnowledge.Product.Serpente;
 import ApplyingKnowledge.Product.TRex;
 
-public class FabricaSelvaJurássica extends FabricaCenario {
+public class FabricaFundoOceano extends FabricaCenario {
 
   public AnimalPerigoso createAnimalPerigoso() {
-    return new TRex();
+    return new TubarãoBranco();
   }
 
   public AnimalTransporte createAnimalTransporte() {
-    return new Pterodátilo();
+    return new CavaloMarinho();
   }
 }

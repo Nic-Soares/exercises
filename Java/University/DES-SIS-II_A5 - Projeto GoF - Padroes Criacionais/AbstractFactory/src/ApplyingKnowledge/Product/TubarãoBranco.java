@@ -2,8 +2,8 @@ package ApplyingKnowledge.Product;
 
 import ApplyingKnowledge.AbstractProduct.AnimalPerigoso;
 
-public class Serpente implements AnimalPerigoso {
+public class TubarãoBranco implements AnimalPerigoso {
   public void attack() {
-    System.out.println("A Serpente está atacando");
+    System.out.println("O Tubarão Branco está atacando");
   }
 }

@@ -1,8 +1,8 @@
 package ApplyingKnowledge.Client;
 
-import PratictingV2.AbstractFactory.FabricaCenario;
-import PratictingV2.AbstractProduct.AnimalPerigoso;
-import PratictingV2.AbstractProduct.AnimalTransporte;
+import ApplyingKnowledge.AbstractFactory.FabricaCenario;
+import ApplyingKnowledge.AbstractProduct.AnimalPerigoso;
+import ApplyingKnowledge.AbstractProduct.AnimalTransporte;
 
 public class MundoAnimal {
   private final AnimalPerigoso animalPerigoso;

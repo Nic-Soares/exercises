@@ -1,9 +1,10 @@
-package PratictingV2;
+package ApplyingKnowledge;
 
-import PratictingV2.AbstractFactory.FabricaCenario;
-import PratictingV2.Client.MundoAnimal;
-import PratictingV2.ConcreteFactory.FabricaDeserto;
-import PratictingV2.ConcreteFactory.FabricaSelvaJurássica;
+import ApplyingKnowledge.ConcreteFactory.FabricaFundoOceano;
+import ApplyingKnowledge.AbstractFactory.FabricaCenario;
+import ApplyingKnowledge.Client.MundoAnimal;
+import ApplyingKnowledge.ConcreteFactory.FabricaDeserto;
+import ApplyingKnowledge.ConcreteFactory.FabricaSelvaJurássica;
 
 public class Main {
   public static void main(String[] args) {
@@ -14,5 +15,9 @@ public class Main {
     FabricaCenario fabricaSelva = new FabricaSelvaJurássica();
     MundoAnimal mundoSelva = new MundoAnimal(fabricaSelva);
     mundoSelva.runAnimalFeatures();
+
+    FabricaCenario fabricaOceano = new FabricaFundoOceano();
+    MundoAnimal mundoOceano = new MundoAnimal(fabricaOceano);
+    mundoOceano.runAnimalFeatures();
   }
 }

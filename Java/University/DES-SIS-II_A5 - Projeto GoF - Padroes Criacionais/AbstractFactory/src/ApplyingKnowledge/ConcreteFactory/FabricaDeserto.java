@@ -1,10 +1,10 @@
 package ApplyingKnowledge.ConcreteFactory;
 
-import PratictingV2.AbstractFactory.FabricaCenario;
-import PratictingV2.AbstractProduct.AnimalPerigoso;
-import PratictingV2.AbstractProduct.AnimalTransporte;
-import PratictingV2.Product.Dromedário;
-import PratictingV2.Product.Serpente;
+import ApplyingKnowledge.AbstractFactory.FabricaCenario;
+import ApplyingKnowledge.AbstractProduct.AnimalPerigoso;
+import ApplyingKnowledge.AbstractProduct.AnimalTransporte;
+import ApplyingKnowledge.Product.Dromedário;
+import ApplyingKnowledge.Product.Serpente;
 
 public class FabricaDeserto extends FabricaCenario {
 

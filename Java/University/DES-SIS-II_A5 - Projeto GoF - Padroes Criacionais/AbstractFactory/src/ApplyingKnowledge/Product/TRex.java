@@ -1,6 +1,6 @@
 package ApplyingKnowledge.Product;
 
-import PratictingV2.AbstractProduct.AnimalPerigoso;
+import ApplyingKnowledge.AbstractProduct.AnimalPerigoso;
 
 public class TRex implements AnimalPerigoso {
   public void attack() {
