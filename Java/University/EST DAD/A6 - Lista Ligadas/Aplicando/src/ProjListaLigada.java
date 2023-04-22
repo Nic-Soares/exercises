@@ -17,6 +17,13 @@ public class ProjListaLigada {
             numeros.remove(8);
             numeros.mostraLista();
             System.out.println("Tamanho da lista: " + numeros.size());
+
+            // impletaçao dos exercicios 1 e 8
+
+            Node central = numeros.getCentralNode();
+            System.out.println("Elemento central: " + central.numero);
+            ListaLigada duplicada = numeros.duplicate();
+            duplicada.mostraLista();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

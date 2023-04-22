@@ -8,7 +8,8 @@ public class Node {
         next = null;
     }
     
-    public void mostraAnimal(){
+    public void mostraNumero(){
         System.out.println("Número: " + numero);
     }
+
 }

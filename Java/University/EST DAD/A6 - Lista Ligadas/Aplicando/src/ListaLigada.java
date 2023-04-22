@@ -66,10 +66,10 @@ public class ListaLigada {
     public void mostraLista() {
         //mostra todos os elementos da lista
         Node aux = header;
-        header.mostraAnimal();
+        header.mostraNumero();
         while (aux.next != null) {
             aux = aux.next;
-            aux.mostraAnimal();
+            aux.mostraNumero();
         }
         System.out.println("Fim da Lista!");
     }
@@ -138,5 +138,49 @@ public class ListaLigada {
             }
             size--;
         }
-    }    
+    }
+
+    public Node getCentralNode() throws Exception {
+        // verifica se a lista está vazia
+        if (isEmpty()) {
+            throw new Exception("Lista vazia!");
+        }
+        // conta o número de nós da lista ligada
+        int count = 0;
+        Node aux;
+        for (aux = header; aux != null; aux = aux.next) {
+            count++;
+        }
+        // obtém o índice do elemento central
+        int index = count / 2;
+        // percorre a lista ligada e retorna o nó no índice central
+        int i = 0;
+        for (aux = header; aux != null; aux = aux.next) {
+            if (i == index) {
+                return aux;
+            }
+            i++;
+        }
+        // se não encontrou o nó central, lança uma exceção
+        throw new Exception("Nó central não encontrado!");
+    }
+
+    public ListaLigada duplicate() throws Exception {
+        // verifica se a lista está vazia
+        if (isEmpty()) {
+            throw new Exception("Lista vazia!");
+        }
+        ListaLigada novaLista = new ListaLigada();
+        Node aux;
+        for (aux = header; aux != null; aux = aux.next) {
+            Node novoNode1 = new Node(aux.numero);
+            Node novoNode2 = new Node(aux.numero);
+            novaLista.addLast(novoNode1);
+            novaLista.addLast(novoNode2);
+        }
+        return novaLista;
+    }
+
+
+
 }
