@@ -1,3 +1,7 @@
+// Foi escolhido os Seguintes exercicios:
+// 1. Escreva uma função que retorne o elemento central de uma lista ligada.
+// 8. Escrever uma função que retorna uma lista ligada que contém valores duplicados de outra lista ligada recebida como parâmetro. Por exemplo, se a lista recebida como parâmetro tiver os valores (3 1 2), deverá ser gerada e retornada a seguinte lista (3 3 1 1 2 2).
+
 public class ListaLigada {
 
     private Node header; // início da lista ligada
@@ -63,15 +67,29 @@ public class ListaLigada {
         size++;
     }
 
-    public void mostraLista() {
-        //mostra todos os elementos da lista
-        Node aux = header;
-        header.mostraNumero();
-        while (aux.next != null) {
-            aux = aux.next;
-            aux.mostraNumero();
+//    public void mostraLista() {
+//        //mostra todos os elementos da lista
+//        Node aux = header;
+//        header.mostraNumero();
+//        while (aux.next != null) {
+//            aux = aux.next;
+//            aux.mostraNumero();
+//        }
+////        System.out.println("Fim da Lista!");
+//    }
+
+// Versao melhorada do método mostrarLista para melhor visualizaçao no console.
+    public void mostrarLista(String texto) {
+        System.out.print(texto);
+        Node current = header;
+        while (current != null) {
+            System.out.print(current.numero);
+            if (current.next != null) {
+                System.out.print(", ");
+            }
+            current = current.next;
         }
-        System.out.println("Fim da Lista!");
+        System.out.println();
     }
 
     public void addAfter(Node novoAnimal, int pos) throws Exception {
@@ -140,6 +158,8 @@ public class ListaLigada {
         }
     }
 
+    // Implementaçao do método solicitado do Exercicio 1
+    //1. Escreva uma função que retorne o elemento central de uma lista ligada.
     public Node getCentralNode() throws Exception {
         // verifica se a lista está vazia
         if (isEmpty()) {
@@ -165,6 +185,8 @@ public class ListaLigada {
         throw new Exception("Nó central não encontrado!");
     }
 
+    // Implementaçao do método solicitado do Exercicio 8
+    // 8. Escrever uma função que retorna uma lista ligada que contém valores duplicados de outra lista ligada recebida como parâmetro. Por exemplo, se a lista recebida como parâmetro tiver os valores (3 1 2), deverá ser gerada e retornada a seguinte lista (3 3 1 1 2 2).
     public ListaLigada duplicate() throws Exception {
         // verifica se a lista está vazia
         if (isEmpty()) {
@@ -180,7 +202,4 @@ public class ListaLigada {
         }
         return novaLista;
     }
-
-
-
 }
