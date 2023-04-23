@@ -1,8 +1,9 @@
-package Practicing;
+package Practicing.Personagens;
 
-// Interface para a abstração
 public interface Personagem {
   void setAvatar(Avatar avatar);
+
+  void setFaixaEtaria(FaixaEtaria faixaEtaria);
+
   void apresentar();
 }
-
