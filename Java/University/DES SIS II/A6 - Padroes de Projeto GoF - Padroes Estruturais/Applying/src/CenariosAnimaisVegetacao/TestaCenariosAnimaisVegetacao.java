@@ -6,7 +6,7 @@ import CenariosAnimaisVegetacao.ConcreteComponent.*;
 import CenariosAnimaisVegetacao.ConcreteDecorator.*;
 import CenariosAnimaisVegetacao.ConcreteFactory.*;
 
-public class Main {
+public class TestaCenariosAnimaisVegetacao {
   public static void main(String[] args) {
     // Criando o cenário inicial
     Cenario deserto = new Deserto();
@@ -17,12 +17,11 @@ public class Main {
     // Criando o mundo animal com o cenário inicial e a fábrica de animais do deserto
     MundoAnimal mundoAnimal = new MundoAnimal(fabricaDeserto, deserto);
 
-    // Executando as funcionalidades padrão do mundo animal
-    mundoAnimal.runAnimalFeatures();
-
     // Adicionando cactos e arbustos no deserto
     mundoAnimal.setVegetacaoDecorator(new CactosDecorator(deserto));
     mundoAnimal.runAnimalFeatures();
+
+    System.out.println("\n");
 
     // Alterando para a selva jurássica
     Cenario selvaJurassica = new SelvaJurassica();
@@ -36,6 +35,8 @@ public class Main {
     // Adicionando árvores gigantes e grandes folhagens na selva jurássica
     mundoAnimal.setVegetacaoDecorator(new ArvoresGigantesDecorator(selvaJurassica));
     mundoAnimal.runAnimalFeatures();
+
+    System.out.println("\n");
 
     // Alterando para o fundo do oceano
     Cenario fundoOceano = new FundoOceano();
