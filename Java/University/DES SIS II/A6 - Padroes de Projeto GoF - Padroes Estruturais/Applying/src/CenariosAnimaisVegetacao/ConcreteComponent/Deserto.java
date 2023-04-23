@@ -1,6 +1,6 @@
-package ConcreteComponent;
+package CenariosAnimaisVegetacao.ConcreteComponent;
 
-import AbstractComponent.Cenario;
+import CenariosAnimaisVegetacao.AbstractComponent.Cenario;
 
 public class Deserto implements Cenario {
   public void descrição() {

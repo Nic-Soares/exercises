@@ -1,9 +1,9 @@
-package Client;
+package CenariosAnimaisVegetacao.Client;
 
-import AbstractComponent.*;
-import AbstractDecorator.VegetacaoDecorator;
-import AbstractFactory.FabricaCenario;
-import AbstractProduct.*;
+import CenariosAnimaisVegetacao.AbstractComponent.*;
+import CenariosAnimaisVegetacao.AbstractDecorator.VegetacaoDecorator;
+import CenariosAnimaisVegetacao.AbstractFactory.FabricaCenario;
+import CenariosAnimaisVegetacao.AbstractProduct.*;
 
 public class MundoAnimal {
   private final AnimalPerigoso animalPerigoso;

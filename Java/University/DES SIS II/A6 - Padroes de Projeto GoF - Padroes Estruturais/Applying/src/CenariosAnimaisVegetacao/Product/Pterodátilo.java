@@ -1,6 +1,6 @@
-package Product;
+package CenariosAnimaisVegetacao.Product;
 
-import AbstractProduct.*;
+import CenariosAnimaisVegetacao.AbstractProduct.*;
 
 public class Pterodátilo implements AnimalTransporte {
   public void transporting(){

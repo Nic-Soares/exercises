@@ -1,8 +1,8 @@
-package ConcreteFactory;
+package CenariosAnimaisVegetacao.ConcreteFactory;
 
-import AbstractFactory.FabricaCenario;
-import AbstractProduct.*;
-import Product.*;
+import CenariosAnimaisVegetacao.AbstractFactory.FabricaCenario;
+import CenariosAnimaisVegetacao.AbstractProduct.*;
+import CenariosAnimaisVegetacao.Product.*;
 
 public class FabricaDeserto extends FabricaCenario {
   private static FabricaDeserto instace = null;

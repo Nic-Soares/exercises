@@ -1,6 +1,6 @@
-package Product;
+package CenariosAnimaisVegetacao.Product;
 
-import AbstractProduct.*;
+import CenariosAnimaisVegetacao.AbstractProduct.*;
 
 public class Serpente implements AnimalPerigoso {
   public void attack() {

@@ -1,7 +1,7 @@
-package ConcreteDecorator;
+package CenariosAnimaisVegetacao.ConcreteDecorator;
 
-import AbstractComponent.Cenario;
-import AbstractDecorator.VegetacaoDecorator;
+import CenariosAnimaisVegetacao.AbstractComponent.Cenario;
+import CenariosAnimaisVegetacao.AbstractDecorator.VegetacaoDecorator;
 
 public class ArvoresGigantesDecorator extends VegetacaoDecorator {
   public ArvoresGigantesDecorator(Cenario cenario) {

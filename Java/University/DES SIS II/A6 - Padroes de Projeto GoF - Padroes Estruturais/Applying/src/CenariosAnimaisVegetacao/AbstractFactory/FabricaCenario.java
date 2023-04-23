@@ -1,7 +1,7 @@
-package AbstractFactory;
+package CenariosAnimaisVegetacao.AbstractFactory;
 
 
-import AbstractProduct.*;
+import CenariosAnimaisVegetacao.AbstractProduct.*;
 
 public abstract class FabricaCenario {
   public abstract AnimalPerigoso createAnimalPerigoso();

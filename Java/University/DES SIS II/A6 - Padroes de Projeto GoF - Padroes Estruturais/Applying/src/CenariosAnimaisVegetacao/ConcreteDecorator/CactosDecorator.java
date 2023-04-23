@@ -1,7 +1,7 @@
-package ConcreteDecorator;
+package CenariosAnimaisVegetacao.ConcreteDecorator;
 
-import AbstractComponent.Cenario;
-import AbstractDecorator.VegetacaoDecorator;
+import CenariosAnimaisVegetacao.AbstractComponent.Cenario;
+import CenariosAnimaisVegetacao.AbstractDecorator.VegetacaoDecorator;
 
 public class CactosDecorator extends VegetacaoDecorator {
   public CactosDecorator(Cenario cenario) {

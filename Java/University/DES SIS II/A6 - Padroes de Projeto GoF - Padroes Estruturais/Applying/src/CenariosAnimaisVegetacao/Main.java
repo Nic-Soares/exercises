@@ -1,8 +1,10 @@
-import AbstractComponent.*;
-import Client.MundoAnimal;
-import ConcreteComponent.*;
-import ConcreteDecorator.*;
-import ConcreteFactory.*;
+package CenariosAnimaisVegetacao;
+
+import CenariosAnimaisVegetacao.AbstractComponent.*;
+import CenariosAnimaisVegetacao.Client.MundoAnimal;
+import CenariosAnimaisVegetacao.ConcreteComponent.*;
+import CenariosAnimaisVegetacao.ConcreteDecorator.*;
+import CenariosAnimaisVegetacao.ConcreteFactory.*;
 
 public class Main {
   public static void main(String[] args) {

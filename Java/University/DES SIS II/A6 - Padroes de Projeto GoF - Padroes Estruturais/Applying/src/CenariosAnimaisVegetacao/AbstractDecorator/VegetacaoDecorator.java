@@ -1,6 +1,6 @@
-package AbstractDecorator;
+package CenariosAnimaisVegetacao.AbstractDecorator;
 
-import AbstractComponent.Cenario;
+import CenariosAnimaisVegetacao.AbstractComponent.Cenario;
 
 public abstract class VegetacaoDecorator implements Cenario {
   public Cenario cenario;
