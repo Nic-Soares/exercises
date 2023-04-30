@@ -7,7 +7,10 @@ package WS;
 import DAO.*;
 import com.google.gson.Gson;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -88,15 +91,39 @@ public class principal {
         @GET
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     @Path("funcionarios/{numat}")
-    public String getFuncionario(@PathParam("numat") int id){
+    public String getFuncionario(@PathParam("numat") int numat){
         FuncionarioDAO funcDao = new FuncionarioDAO();
-        Funcionario funcionario = funcDao.consulta(id);
+        Funcionario funcionario = funcDao.consulta(numat);
         if(funcionario != null){
             Gson gson = new Gson();
             return gson.toJson(funcionario);
         }
         else
             throw new WebApplicationException(Response.Status.NOT_FOUND);
+    }
+    
+    @GET
+    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+    @Path("supervisores")
+    public String getSupervisores(){
+
+        FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+        ArrayList<Funcionario> funcionarios = funcionarioDao.getLista();
+
+        List<Funcionario> supervisores = new ArrayList<>();
+        for (Funcionario f1 : funcionarios) {
+            for (Funcionario f2 : funcionarios) {
+                if (f1.getNumat() == f2.getNsuper()) {
+                    supervisores.add(f1);
+                    break;
+                }
+            }
+        }
+
+
+        Gson gson = new Gson();
+
+        return gson.toJson(supervisores);
     }
 
     /**
