@@ -15,7 +15,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -80,6 +83,20 @@ public class principal {
         
         return gson.toJson(funcionarios);
 
+    }
+    
+        @GET
+    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+    @Path("funcionarios/{numat}")
+    public String getFuncionario(@PathParam("numat") int id){
+        FuncionarioDAO funcDao = new FuncionarioDAO();
+        Funcionario funcionario = funcDao.consulta(id);
+        if(funcionario != null){
+            Gson gson = new Gson();
+            return gson.toJson(funcionario);
+        }
+        else
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
     }
 
     /**

@@ -61,5 +61,29 @@ public class FuncionarioDAO {
 
         return funcionarios;
     }
+    
+    public Funcionario consulta(int numat){
+        String sql = "SELECT * FROM Funcionario WHERE numat = ?";
+        Funcionario funcionario = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
+            stmt.setLong(1, numat);
+            ResultSet rs =stmt.executeQuery();
+            if (rs.next()) {
+                funcionario = new Funcionario();
+                funcionario.setNumat(rs.getInt("numat"));
+                funcionario.setNome(rs.getString("nome"));
+                funcionario.setSalario(rs.getDouble("salario"));;
+                funcionario.setSexo((rs.getString("sexo").charAt(0)));
+                funcionario.setNdepto(rs.getInt("ndepto"));
+                funcionario.setNsuper(rs.getInt("nsuper"));
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return funcionario;
+    }
 
 }
