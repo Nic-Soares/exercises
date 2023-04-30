@@ -5,7 +5,9 @@
 package WS;
 
 import DAO.*;
+import com.google.gson.Gson;
 import java.util.ArrayList;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -55,21 +57,28 @@ public class principal {
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     @Path("funcionarios")
     public String getFuncionario(){
-        // cria uma instância da classe FuncionarioDao
-        FuncionarioDAO funcionarioDao = new FuncionarioDAO();
-        // obtém a lista atualizada de funcionários
-        ArrayList<Funcionario> funcionarios = funcionarioDao.getLista();
-        
-        String resposta = "";
+//        // cria uma instância da classe FuncionarioDao
+//        FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+//        // obtém a lista atualizada de funcionários
+//        ArrayList<Funcionario> funcionarios = funcionarioDao.getLista();
+//        
+//        String resposta = "";
+//
+//        for (Funcionario f:funcionarios)
+//            resposta += "Numat: " + f.getNumat() +
+//                        "Nome: " + f.getNome() +
+//                        "Salario: " + f.getSalario() +
+//                        "Sexo: " + f.getSexo() +
+//                        "Ndepto: " + f.getNdepto() +
+//                        "NSUper: " + f.getNsuper() + "\n";
+//        return resposta;
 
-        for (Funcionario f:funcionarios)
-            resposta += "Numat: " + f.getNumat() +
-                        "Nome: " + f.getNome() +
-                        "Salario: " + f.getSalario() +
-                        "Sexo: " + f.getSexo() +
-                        "Ndepto: " + f.getNdepto() +
-                        "NSUper: " + f.getNsuper() + "\n";
-        return resposta;
+        FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+        ArrayList<Funcionario> funcionarios = funcionarioDao.getLista();
+
+        Gson gson = new Gson();
+        
+        return gson.toJson(funcionarios);
 
     }
 
