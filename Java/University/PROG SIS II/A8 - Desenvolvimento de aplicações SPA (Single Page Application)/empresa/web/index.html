@@ -188,6 +188,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 txtNsuper.value = "";
             }
             
+            fuction handleNetworkError(resposta, mensagem){
+                if (!resposta.ok){
+                    throw new Error(resposta.status);
+                }
+                return resposta;
+            }
+            
         </script>
     </body>
 </html>
