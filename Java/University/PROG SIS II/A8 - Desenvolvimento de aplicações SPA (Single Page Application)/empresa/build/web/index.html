@@ -10,62 +10,184 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <h1>Banco Funcionarios</h1>
         <form>
-          <table>
-            <tr>
-              <td>
-                Número de Matrícula:
-              </td>
-              <td>
-                <input type="text" id="txtNumat">
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Nome:
-              </td>
-              <td>
-                <input type="text" id="txtNome">
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Salário:
-              </td>
-              <td>
-                <input type="text" id="txtSalario">
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Sexo:
-              </td>
-              <td>
-                <select id="sltSexo">
-                  <option value="M">Masculino</option>
-                  <option value="F">Feminino</option>
-                  <option value="O">Outro</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Número do Departamento:
-              </td>
-              <td>
-                <input type="text" id="txtNdepto">
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Número do Superior:
-              </td>
-              <td>
-                <input type="text" id="txtNsuper">
-              </td>
-            </tr>
-          </table>
-          <input type="submit" value="Adicionar">
+            <table>
+                <tr>
+                  <td>
+                    Número de Matrícula:
+                  </td>
+                  <td>
+                    <input type="text" id="txtNumat">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Nome:
+                  </td>
+                  <td>
+                    <input type="text" id="txtNome">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Salário:
+                  </td>
+                  <td>
+                    <input type="text" id="txtSalario">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Sexo:
+                  </td>
+                  <td>
+                    <select id="sltSexo">
+                      <option value="M">Masculino</option>
+                      <option value="F">Feminino</option>
+                      <option value="O">Outro</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Número do Departamento:
+                  </td>
+                  <td>
+                    <input type="text" id="txtNdepto">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Número do Superior:
+                  </td>
+                  <td>
+                    <input type="text" id="txtNsuper">
+                  </td>
+                </tr>
+            </table>
+            <br>
+            <button type="button" onclick="consultarFuncionario()">Consultar</button>
+            <button type="button" onclick="adicionarFuncionario()">Adicionar</button>
+            <button type="button" onclick="atualizarFuncionario()">Atualizar</button>
+            <button type="button" onclick="removerFuncionario()">Remover</button>
+            <button type="button" onclick="limparFormulario()">Limpar</button>
+            <br>
+            <h1><label id="msgErro">Mensagem status: </label></h1>
         </form>
+        <script>
+            const txtNumat = document.getElementById("txtNumat")
+            const txtNome = document.getElementById("txtNome")
+            const txtSalario = document.getElementById("txtSalario")
+            const txtSexo = document.getElementById("sltSexo")
+            const txtNdepto = document.getElementById("txtNdepto")
+            const txtNsuper = document.getElementById("txtNsuper")
+            const msgErro = document.getElementById("msgErro")
+            
+            function carregarFuncionario(jsonFuncionario){
+                txtNumat.value = jsonFuncionario.numat;
+                txtNome.value = jsonFuncionario.nome;
+                txtSalario.value = jsonFuncionario.salario;
+                txtSexo.value = jsonFuncionario.sexo;
+                txtNdepto.value = jsonFuncionario.ndepto;
+                txtNsuper.value = jsonFuncionario.nsuper;
+            }
+            
+            async function consultarFuncionario(){
+                fetch('http://localhost:8080/empresa/sistema/rest/funcionarios/' + txtNumat.value).
+                then(resposta => {
+                    //verifica se a conexao falhou
+                    if (!resposta.ok){
+                        // gera um erro que caira no catch abaixo
+                        throw new Error(resposta.status);
+                    }
+                    return resposta.json();
+                }).
+                then(jsonResposta => carregarFuncionario(jsonResposta)). //OK
+                catch(erro => msgErro.innerHTML = 'Mensagem status: Numero de Matricula de Funcionario [' + txtNumat.value + '] nao encontrado. Erro [' + erro.message + ']'); //falha
+            }
+            
+            async function adicionarFuncionario(){
+                fetch('http://localhost:8080/empresa/sistema/rest/funcionarios/',
+                {method: 'POST',
+                    body: JSON.stringify({
+                        numat: txtNumat.value,
+                        nome: txtNome.value,
+                        salario: txtSalario.value,
+                        sexo: txtSexo.value,
+                        ndepto: txtNdepto.value,
+                        nsuper: txtNsuper.value,
+                    }),
+                    headers: {
+                        "Content-type": "application/json"
+                    }
+                    
+                }).
+                then(resposta => {
+                    // verifica se a conexao falhou
+                    if (!resposta.ok){
+                        // gera um erro que caira no catch abaixo
+                        throw new Error(resposta.status);
+                    }
+                    return resposta;
+                }).
+                then(jsonResposta => msgErro.innerHTML = 'Mensagem status: Numero da Matricula [' + txtNumat.value + '] inserido.'). //ok
+                catch(erro => msgErro.innerHTML = 'Mensagem status: Numero da Matricula [' + txtNumat.value + '] nao inserir. Erro [' + erro.message + ']'); // falha
+                
+            }
+            
+            async function atualizarFuncionario(){
+                fetch('http://localhost:8080/empresa/sistema/rest/funcionarios/',
+                
+                {method: 'PUT',
+                    body: JSON.stringify({
+                        numat: txtNumat.value,
+                        nome: txtNome.value,
+                        salario: txtSalario.value,
+                        sexo: txtSexo.value,
+                        ndepto: txtNdepto.value,
+                        nsuper: txtNsuper.value,
+                    }),
+                    headers: {
+                        "Content-type": "application/json"
+                    }
+                    
+                }).
+                then(resposta => {
+                    // verifica se a conexao falhou
+                    if (!resposta.ok){
+                        // gera um erro que caira no catch abaixo
+                        throw new Error(resposta.status);
+                    }
+                    return resposta;
+                }).
+                then(jsonResposta => msgErro.innerHTML = 'Mensagem status: Numero da Matricula [' + txtNumat.value + '] inserido.'). //ok
+                catch(erro => msgErro.innerHTML = 'Mensagem status: Numero da Matricula [' + txtNumat.value + '] nao inserir. Erro [' + erro.message + ']'); // falha
+            }
+            
+            async function removerFuncionario(){
+                fetch('http://localhost:8080/empresa/sistema/rest/funcionarios/' + txtNumat.value, {method: 'DELETE'}).
+                then(resposta => {
+                    // verifica se a conexao falhou
+                    if (!resposta.ok){
+                        // gera um erro que caira no catch abaixo
+                        throw new Error(resposta.status);
+                    }
+                    return resposta;
+                }).
+                then(jsonResposta => msgErro.innerHTML = 'Mensagem status: Numero da Matricula [' + txtNumat.value + '] removido.'). //ok
+                catch(erro => msgErro.innerHTML = 'Mensagem status: Erro ao remover Numero da Matricula [' + txtNumat.value + ']. Erro [' + erro.message + ']'); // ok
+            }
+            
+            function limparFormulario(){
+                txtNumat.value = "";
+                txtNome.value = "";
+                txtSalario.value = "";
+                txtSexo.value = "";
+                txtNdepto.value = "";
+                txtNsuper.value = "";
+            }
+            
+        </script>
     </body>
 </html>
