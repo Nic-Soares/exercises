@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/A6 - Padroes de Projeto GoF - Padroes Estruturais.iml" filepath="$PROJECT_DIR$/.idea/A6 - Padroes de Projeto GoF - Padroes Estruturais.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Applying/Applying.iml" filepath="$PROJECT_DIR$/Applying/Applying.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Praticando 1 - Bridge/Praticando 1 - Bridge.iml" filepath="$PROJECT_DIR$/Praticando 1 - Bridge/Praticando 1 - Bridge.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Praticando 2 - Decorator/Praticando 2 - Decorator.iml" filepath="$PROJECT_DIR$/Praticando 2 - Decorator/Praticando 2 - Decorator.iml" />
+    </modules>
+  </component>
+</project>
