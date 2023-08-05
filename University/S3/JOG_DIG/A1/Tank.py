@@ -1,20 +1,25 @@
+# Imports
 import random
 import time
 
+# Class Definition: Tank
 class Tank(object):
     def __init__(self, name):
+        # Initialize tank properties
         self.name = name
         self.alive = True
-        self.ammo = 5  # Corrigindo o nome do atributo para "ammo"
+        self.ammo = 5
         self.armor = 60
 
     def __str__(self):
+        # Returns a string representation of the tank's status
         if self.alive:
             return "%s (%i armor, %i shells)" % (self.name, self.armor, self.ammo)
         else:
             return "%s (DEAD)" % self.name
 
     def fire_at(self, enemy):
+        # Fires a shell at the specified enemy tank
         if self.ammo >= 1:
             self.ammo -= 1
             print(self.name, "fires on", enemy.name)
@@ -23,44 +28,82 @@ class Tank(object):
             print(self.name, "has no shells!")
 
     def hit(self):
+        # Handles a hit received by the tank
         self.armor -= 20
         print(self.name, "is hit")
         if self.armor <= 0:
             self.explode()
 
     def explode(self):
+        # Handles the tank's explosion
         self.alive = False
         print(self.name, "explodes!")
 
-# 1) Crie cinco objetos do time Tanque e armazene-os em um array
-tank_names = ["Tank1", "Tank2", "Tank3", "Tank4", "Tank5"]
-tanks = [Tank(name) for name in tank_names]
+# Function: create_tanks
+def create_tanks(num_tanks):
+    # Creates a dictionary containing 'num_tanks' Tank objects, with unique keys for each tank
+    tanks = {}
+    for i in range(num_tanks):
+        tank_name = input(f"Enter the name for Tank {i+1}: ")
+        tanks[chr(ord('a') + i)] = Tank(tank_name)
+    return tanks
 
-# 2) Crie a simulação com as regras especificadas:
-while len(tanks) > 1:
-    # a. Sortear um número entre 0 e o tamanho do array de tanques
-    attacker_index = random.randint(0, len(tanks) - 1)
-    attacker = tanks[attacker_index]
+# Function: print_tank_info
+def print_tank_info(tanks):
+    # Prints the status of all tanks in the dictionary
+    for key, tank in tanks.items():
+        print(f"{key}: {tank}")
 
-    # Verificar se o tanque atacante ainda está vivo e tem munição
-    if attacker.alive and attacker.ammo > 0:  # Corrigindo o nome do atributo para "ammo"
-        targets = [i for i in range(len(tanks)) if i != attacker_index]
-        target_index = random.choice(targets)
-        target = tanks[target_index]
+# Function: main
+def main():
+    # Main game function
+    num_tanks = int(input("How many tanks do you want to create (between 2 and 10)? "))
+    if num_tanks < 2 or num_tanks > 10:
+        print("Invalid number of tanks. Please choose between 2 and 10.")
+        return
 
-        # Ataque do tanque atirador no tanque alvo
-        attacker.fire_at(target)
+    # Create tanks and start the game
+    tanks = create_tanks(num_tanks)
+    print("\nGame starts!")
 
-        # Se o tanque alvo explodir, remova-o do array de tanques
-        if not target.alive:
-            tanks.pop(target_index)
-    else:
-        # Caso contrário, selecione um novo tanque atacante
-        continue
+    # Randomize the order of the keys in the tanks dictionary
+    player_keys = list(tanks.keys())
+    random.shuffle(player_keys)
 
-    # Adicione uma pequena pausa para melhorar a legibilidade da simulação
-    time.sleep(2)
+    while len(tanks) > 1:
+        # Loop through players in random order
+        for current_player_key in player_keys:
+            current_player = tanks[current_player_key]
 
-# O loop acima irá executar os ataques até que reste apenas um tanque.
-# Após a execução, o último tanque sobrevivente estará no array 'tanks'.
-print("O tanque sobrevivente é:", tanks[0].name)
+            # Check if the player is alive and has ammo
+            if not current_player.alive or current_player.ammo == 0:
+                continue
+
+            print(f"\nIt's {current_player.name}'s turn.")
+            print_tank_info(tanks)
+
+            while True:
+                # Get the target player choice
+                target_key = input(f"{current_player.name}, choose a target (enter the corresponding letter): ")
+                if target_key in tanks and target_key != current_player_key:
+                    break
+                else:
+                    print("Invalid target. Choose again.")
+
+            # Fire at the selected target player
+            target_player = tanks[target_key]
+            current_player.fire_at(target_player)
+
+            # Check if the target player is dead and remove from the game
+            if not target_player.alive:
+                del tanks[target_key]
+
+            time.sleep(2)
+
+    # Game over, print the surviving tank
+    print("\nGame over!")
+    print("The surviving tank is:", list(tanks.values())[0].name)
+
+# Execute the main function if this script is run as the main program
+if __name__ == "__main__":
+    main()
