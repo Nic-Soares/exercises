@@ -95,10 +95,11 @@ def main():
             current_player.fire_at(target_player)
 
             # Check if the target player is dead and remove from the game
-            if not target_player.alive:
-                del tanks[target_key]
+        if not target_player.alive:
+            del tanks[target_key]
+            player_keys.remove(target_key)  # Remove the eliminated player from active player list
 
-            time.sleep(2)
+            time.sleep(1)
 
     # Game over, print the surviving tank
     print("\nGame over!")
