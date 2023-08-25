@@ -1,0 +1,20 @@
+Tue Mar 14 19:08:40 BRT 2023 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
+----------------------------------------------------------------
+Tue Mar 14 19:08:44 BRT 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0186-e22b-1912-ffffc69d1b15 
+on database directory C:\Users\Nicol\workspace\exercises\Java\University\PROG SIST II_A4 - Data Access Object (DAO) no Java EE\AppSistemaAcademico\BancoDeDados\empresa with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93 
+Loaded from file:/C:/Users/Nicol/GlassFish_Server/javadb/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=17.0.6+9-LTS-190
+user.dir=C:\Users\Nicol\GlassFish_Server\javadb
+os.name=Windows 11
+os.arch=amd64
+os.version=10.0
+derby.system.home=C:\Users\Nicol\workspace\exercises\Java\University\PROG SIST II_A4 - Data Access Object (DAO) no Java EE\AppSistemaAcademico\BancoDeDados
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Tue Mar 14 19:41:39 BRT 2023: Shutting down Derby engine
+----------------------------------------------------------------
+Tue Mar 14 19:41:39 BRT 2023:
+Shutting down instance a816c00e-0186-e22b-1912-ffffc69d1b15 on database directory C:\Users\Nicol\workspace\exercises\Java\University\PROG SIST II_A4 - Data Access Object (DAO) no Java EE\AppSistemaAcademico\BancoDeDados\empresa with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93 
+----------------------------------------------------------------
