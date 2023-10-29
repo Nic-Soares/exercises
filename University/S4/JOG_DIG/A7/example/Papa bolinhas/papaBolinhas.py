@@ -16,15 +16,13 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Papa Bolinhas")
 
 #Carrega a imagem de fundo
-imagem = pygame.image.load("/home/nicolas/Projects/exercises/University/S4/JOG_DIG/A7/example/Papa bolinhas/img/imagem_fundo.png")
+imagem = pygame.image.load("img/imagem_fundo.png")
 
-# Define as cores
+# Define as cores em RGB
 BLACK  = (0, 0, 0)
 WHITE = (255, 255, 255)
 YELLOW = (255, 255, 0)
 RED = (255, 0, 0)
-BLUE = (0, 0, 255)
-GREEN = (0, 255, 0)
 
 # Declarando a fonte do placar e variável contadora
 font = pygame.font.SysFont('sans',40)
@@ -85,23 +83,23 @@ while True:
     #blita a imagem de fundo na tela
     screen.blit(imagem, (0, 0))
 
-    # Desenha um círculo azul na tela
-    pygame.draw.circle(screen, BLUE, posicaoPapaBolinhas, 20)
+    # Desenha um circulo branco na tela
+    pygame.draw.circle(screen, WHITE, posicaoPapaBolinhas, 20)
 
     # Aqui é setado a posição inicial da bola vermelha
     if criar == True:
-        X_vermelho = randint(10, 790)  # Posição X aleatória na parte superior da tela
-        Y_vermelho = 0  # Inicialize a posição Y no topo da tela
+        X_vermelho = randint(40,760)
+        Y_vermelho = 20
         criar = False
 
     # Velocidade de queda do círculo Vermelho
-    Y_vermelho += 10 # Velocidade aumentada de 5 para 10
+    Y_vermelho += 5
 
     # Valores da bola vermelha é atribuido 
-    posicaoBolas = [X_vermelho,Y_vermelho]
+    posicaoBolasVermelhas = [X_vermelho,Y_vermelho]
    
-    # Desenha o círculo verde
-    pygame.draw.circle(screen, GREEN, posicaoBolas, 10)
+    # Desenha o círculo vermelho
+    pygame.draw.circle(screen, RED, posicaoBolasVermelhas, 10)
 
     # Se o círculo vermelho ultapassar a  tela ela é reiniciada
     if Y_vermelho > 600:
@@ -113,7 +111,7 @@ while True:
     if (posicaoPapaBolinhas[1] + 20 >= Y_vermelho - 10  and posicaoPapaBolinhas[1] - 20 <= Y_vermelho + 10) and (posicaoPapaBolinhas[0] +20  >= X_vermelho - 10 and posicaoPapaBolinhas[0] - 20 <= X_vermelho + 20): 
         criar = True
         placar = placar+1
-        pygame.mixer.music.load('/home/nicolas/Projects/exercises/University/S4/JOG_DIG/A7/example/Papa bolinhas/som/catch.mp3')
+        pygame.mixer.music.load('som/catch.mp3')
         pygame.mixer.music.play(0)
 
     # renderizando as fontes do placar na tela
