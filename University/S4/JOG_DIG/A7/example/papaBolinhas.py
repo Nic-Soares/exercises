@@ -16,7 +16,7 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Papa Bolinhas")
 
 #Carrega a imagem de fundo
-imagem = pygame.image.load("img/imagem_fundo.png")
+imagem = pygame.image.load("image/imagem_fundo.png")
 
 # Define as cores em RGB
 BLACK  = (0, 0, 0)
@@ -111,7 +111,7 @@ while True:
     if (posicaoPapaBolinhas[1] + 20 >= Y_vermelho - 10  and posicaoPapaBolinhas[1] - 20 <= Y_vermelho + 10) and (posicaoPapaBolinhas[0] +20  >= X_vermelho - 10 and posicaoPapaBolinhas[0] - 20 <= X_vermelho + 20): 
         criar = True
         placar = placar+1
-        pygame.mixer.music.load('som/catch.mp3')
+        pygame.mixer.music.load('sound/catch.mp3')
         pygame.mixer.music.play(0)
 
     # renderizando as fontes do placar na tela
