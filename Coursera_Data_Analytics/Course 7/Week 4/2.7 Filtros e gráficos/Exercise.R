@@ -1,6 +1,6 @@
 library(tidyverse)
 
-hotel_bookings <- read.csv("hotel_bookings.csv")
+hotel_bookings <- read.csv("/home/nicolas/Projects/exercises/Coursera_Data_Analytics/Course 7/Week 4/2.7 Filtros e gráficos/hotel_bookings.csv")
 
 # Etapa 2: Refrescar sua memória
 
@@ -15,7 +15,7 @@ library(ggplot2)
 # Etapa 4: Como fazer muitos gráficos diferentes:
 
 ggplot(data = hotel_bookings) +
-  geom_point(mapping = aes(x = lead_time, y = criancas))
+  geom_point(mapping = aes(x = lead_time, y = children))
 
 ggplot(data = hotel_bookings) +
   geom_bar(mapping = aes(x = hotel, fill = market_segment))

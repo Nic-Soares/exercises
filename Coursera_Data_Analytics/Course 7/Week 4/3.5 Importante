@@ -1,0 +1,49 @@
+library(ggplot2)
+library(tidyverse)
+
+hotel_bookings <- read.csv("hotel_bookings.csv")
+
+# Etapa 4: Como fazer anotações no seu gráfico
+
+ggplot(data = hotel_bookings) +
+  geom_bar(mapping = aes(x = market_segment)) +
+  facet_wrap(~hotel)
+
+mindate <- min(hotel_bookings$arrival_date_year)
+maxdate <- max(hotel_bookings$arrival_date_year)
+
+ggplot(data = hotel_bookings) +
+  geom_bar(mapping = aes(x = market_segment)) +
+  facet_wrap(~hotel) +
+  theme(axis.text.x = element_text(angle = 45)) +
+  labs(title="Comparação de segmentos de mercado por tipo de hotel para reservas de hotéis",
+       subtitle=paste0("Dados de: ", mindate, " a ", maxdate))
+
+## Mudar para menos detalhe e colocar legenda simples
+
+ggplot(data = hotel_bookings) +
+  geom_bar(mapping = aes(x = market_segment)) +
+  facet_wrap(~hotel) +
+  theme(axis.text.x = element_text(angle = 45)) +
+  labs(title="Comparação de segmentos de mercado por tipo de hotel para reservas de hotéis",
+       subtitle=paste0("Dados de: ", mindate, " a ", maxdate))
+
+
+## LImpar rótulos dos eixos x e y
+
+ggplot(data = hotel_bookings) +
+  geom_bar(mapping = aes(x = market_segment)) +
+  facet_wrap(~hotel) +
+  theme(axis.text.x = element_text(angle = 45)) +
+  labs(title="Comparação de segmentos de mercado por tipo de hotel para reservas de hotéis",
+       caption=paste0("Dados de: ", mindate, " a ", maxdate),
+       x="Market Segment",
+       y="Number of Bookings")
+
+# Etapa 5: Salvar seu gráfico
+
+ggsave('hotel_booking_chart.png')
+
+ggsave('hotel_booking_chart.png',
+       width=16,
+       height=8)
