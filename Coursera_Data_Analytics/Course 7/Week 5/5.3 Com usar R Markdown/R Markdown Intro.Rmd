@@ -2,7 +2,12 @@
 title: "R Markdown Intro"
 author: "Nicolas"
 date: "2024-01-09"
-output: html_document
+output:
+  html_document:
+    df_print: paged
+  pdf_document:
+    latex_engine: xelatex
+    template: simple
 ---
 
 ```{r setup, include=FALSE}
