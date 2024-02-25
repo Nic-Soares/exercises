@@ -1,0 +1,162 @@
+---
+output: html_notebook
+---
+
+```{r pressure, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("~/.R/Logo_Mack.png")
+```
+
+- **Curso**: Análise e Desenvolvimento de Sistemas
+- **Polo de Apoio Presencial**: Campus Alphaville
+- **Semestre**: Quinto
+- **Componente Curricular / Tema**: Propabilidade e Estatistica Aplicada
+- **Nome Completo do Aluno**: Nicolas Soares Santos
+- **TIA**: 22021221
+- **Nome do Professor**: Gaston Alberto Concha Henriquez
+
+----
+
+## Exercícios
+
+### Exercício 1
+
+Considere a base.
+
+```{r}
+#install.packages("mosaicData")
+data(CPS85 , package = "mosaicData")
+head(CPS85)
+```
+
+----
+
+1. Faça um histograma e gráficos de caixa de `educ` e `exper`. Existem outliers para que valores?
+
+```{r}
+# Carregando o pacote necessário
+library(mosaicData)
+
+# Carregando os dados
+data(CPS85, package = "mosaicData")
+
+# Histograma e Boxplot para educ
+hist(CPS85$educ, main = "Histograma de educ", xlab = "educ", col = "lightblue", border = "black")
+boxplot(CPS85$educ, main = "Boxplot de educ", col = "lightblue", border = "black")
+
+# Identificando outliers em educ
+outliers_educ <- boxplot(CPS85$educ, plot = FALSE)$out
+cat("Outliers em educ:", outliers_educ, "\n\n")
+
+# Histograma e Boxplot para expr
+hist(CPS85$exper, main = "Histograma de exper", xlab = "exper", col = "lightgreen", border = "black")
+boxplot(CPS85$exper, main = "Boxplot de exper", col = "lightgreen", border = "black")
+
+# Identificando outliers em expr
+outliers_expr <- boxplot(CPS85$exper, plot = FALSE)$out
+cat("Outliers em expr:", outliers_expr, "\n")
+```
+
+----
+
+2.Faça gráficos para exibir a distribuição (histograma) de valores de `educ`, `exper` e `wage` separadamente para os sexos Masculino e Feminino. Que distribuições concentram valores mais a esquerda (valores menores)?
+
+Esses são casos de distribuições chamadas distribuições assimétricas em calda.
+
+```{r}
+# Histograma de educ para sex = "Male" e sex = "Female"
+par(mfrow = c(1, 2))
+hist(CPS85$educ[CPS85$sex == "M"], main = "Educ - Masculino", xlab = "Educ", col = "lightblue")
+hist(CPS85$educ[CPS85$sex == "F"], main = "Educ - Feminino", xlab = "Educ", col = "lightcoral")
+
+# Histograma de exper para sex = "Male" e sex = "Female"
+hist(CPS85$exper[CPS85$sex == "M"], main = "Exper - Masculino", xlab = "Exper", col = "lightgreen")
+hist(CPS85$exper[CPS85$sex == "F"], main = "Exper - Feminino", xlab = "Exper", col = "lightpink")
+
+# Histograma de wage para sex = "Male" e sex = "Female"
+hist(CPS85$wage[CPS85$sex == "M"], main = "Wage - Masculino", xlab = "Wage", col = "lightyellow")
+hist(CPS85$wage[CPS85$sex == "F"], main = "Wage - Feminino", xlab = "Wage", col = "lightorange")
+
+```
+----
+
+3. Analise a distribuição dos mesmos dados do problema anterior, mas agora empregue um gráfico de caixa e a função `~` para exibir separadamente os sexos.
+
+Dica: experimente `educ ~ sex`.
+
+```{r}
+# Gráfico de caixa para educ e sex
+boxplot(educ ~ sex, data = CPS85, main = "Educ por Sexo", col = c("lightblue", "lightcoral"))
+
+```
+
+----
+
+4. Consulte o help do boxplot e busque uma opção que exiba com maior evidência a mediana e o quanto ela difere dos outros valores. Repita então o exercício anterior com essa opção. Se conseguir (rs) empregue uma opção para colorir diferentemente as caixas para o sexo Feminino e Masculino. Utilize também um parâmetro para não exibir os outliers.
+
+Dica: não se incomode com a mensagem de warning se surgir.
+
+```{r}
+# Gráfico de caixa com maior evidência na mediana e sem outliers
+boxplot(educ ~ sex, data = CPS85, main = "Educ por Sexo", col = c("lightblue", "lightcoral"), notch = TRUE, outline = FALSE)
+
+```
+
+----
+
+5. Empregue um gráfico de barras e outro de pizza para exibir a proporção de do status de casados na base. Dica: para o `pie()` você precisa fornecer a frequencia dos valores. Empregue em conjunto o `table()`.
+
+```{r}
+# Gráfico de barras para o status marital
+barplot(table(CPS85$married), main = "Status Marital", xlab = "Status", ylab = "Frequência", col = "lightblue")
+
+# Gráfico de pizza para o status marital
+pie(table(CPS85$married), main = "Status Marital", col = c("lightblue", "lightcoral"))
+
+```
+
+----
+
+6. Faça um gráfico de densidade e um histogram com breaks=30 para os valores de rendimentos (`wage`). Compare os gráficos.
+
+```{r}
+# Gráfico de densidade para wage
+plot(density(CPS85$wage), main = "Densidade de Wage", xlab = "Wage", col = "lightblue")
+
+# Histograma para wage com breaks=30
+hist(CPS85$wage, main = "Histograma de Wage", xlab = "Wage", col = "lightgreen", breaks = 30)
+
+```
+
+----
+
+### Exercício 2
+
+1. Empregue a função `rnorm` para gerar valores randomicos. Acesse o `help(norm)`. Mas o seu formato geral é:
+
+```
+                      rnorm( n, valor médio, desvio padrão)
+```
+
+gere 4 séries com 100 valores aleatórios com média 50 e desvio padrão 10, 50, 20 e 5 respectivamente. Em seguida plot os gráficos de densidade e compare.
+
+Dica: você pode querer empregar `plot(density(...),...)` no lugar do `densityplot()`.
+
+**Solução**
+
+2. Repita o exercício anterior somente para as séries de desvio padrão 10 e 20, mas compare também os histogramas produzidos. Compare os resultados.
+
+**Solução**
+
+### Exercício 3
+
+Considere a base.
+
+1. Produza o gráfico:
+
+```
+boxplot(DOLAR ~ data, data=df)
+```
+
+Por quê o gráfico aparentemente não exibe os quartis de cada data?
+
+**Solução**

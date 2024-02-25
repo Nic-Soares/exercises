@@ -5,6 +5,25 @@ date: "2024-02-25"
 output: html_document
 ---
 
+
+---
+
+```{r pressure, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("~/.R/Logo_Mack.png")
+```
+
+- **Curso**: Análise e Desenvolvimento de Sistemas
+- **Polo de Apoio Presencial**: Campus Alphaville
+- **Semestre**: Quinto
+- **Componente Curricular / Tema**: Propabilidade e Estatistica Aplicada
+- **Nome Completo do Aluno**: Nicolas Soares Santos
+- **TIA**: 22021221
+- **Nome do Professor**: Gaston Alberto Concha Henriquez
+
+---
+
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
