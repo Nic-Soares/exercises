@@ -30,6 +30,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Considere a base.
 
+
+
 ```{r head1}
 df = read.csv('http://meusite.mackenzie.br/rogerio/TIC/mystocksn.csv')
 head(df)
