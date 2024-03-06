@@ -4,71 +4,80 @@ body {
     padding: 20px;
 }
 
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.pagina {
+    max-width: 960px;
     border: 3px solid #A5A5A5;
     border-radius: 20px;
-    max-width: 960px;
+    display: flex;
+    flex-direction: column;
 }
 
-.heading {
+.cabecalho {
     display: flex;
-    flex-direction: row;
+    align-items: center;
     justify-content: space-between;
     padding: 10px;
     height: 110px;
-    width: 100%;
     border-bottom: 3px solid #A5A5A5;
     box-sizing: border-box;
 }
 
-.logo-mackenzie,
-.logo-linkedin {
+.logo,
+.titulo,
+.rede-social {
+    display: flex;
+    align-items: center;
+}
+
+.logo,
+.logo-mack,
+.titulo h1,
+.rede-social {
     height: 100%;
     margin: 0;
 }
 
-.title-text {
+
+
+.titulo h1 {
     font-size: 24px;
 }
 
-.avatar-space {
-    border-right: 3px solid #A5A5A5;
+.conteudo {
+    display: flex;
+    justify-content: center;
 }
 
-.id-avatar {
-    padding: 10px 10px;
+.avatar {
+    border-right: 3px solid #A5A5A5;
+    display: flex;
+    flex-direction: column;
+}
+
+.id {
+    padding: 10px;
     border-bottom: 3px solid #A5A5A5;
+}
+
+.foto {
+    padding: 20px;
 }
 
 .my-photo {
     border-radius: 20px;
 }
 
-.content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.photo {
-    padding: 20px;
-}
-
-.text {
-    padding: 20px;
-}
-
-.profile-box {
+.perfil {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
 
-.profile-text {
-    padding: 10px 10px;
+.informacoes {
+    padding: 10px;
     border-bottom: 3px solid #A5A5A5;
+}
+
+.texto {
+    padding: 20px;
 }
