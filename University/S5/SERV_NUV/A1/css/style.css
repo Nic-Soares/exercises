@@ -1,3 +1,74 @@
 body {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
 
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 3px solid #A5A5A5;
+    border-radius: 20px;
+    max-width: 960px;
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    height: 110px;
+    width: 100%;
+    border-bottom: 3px solid #A5A5A5;
+    box-sizing: border-box;
+}
+
+.logo-mackenzie,
+.logo-linkedin {
+    height: 100%;
+    margin: 0;
+}
+
+.title-text {
+    font-size: 24px;
+}
+
+.avatar-space {
+    border-right: 3px solid #A5A5A5;
+}
+
+.id-avatar {
+    padding: 10px 10px;
+    border-bottom: 3px solid #A5A5A5;
+}
+
+.my-photo {
+    border-radius: 20px;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.photo {
+    padding: 20px;
+}
+
+.text {
+    padding: 20px;
+}
+
+.profile-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.profile-text {
+    padding: 10px 10px;
+    border-bottom: 3px solid #A5A5A5;
 }
