@@ -199,22 +199,28 @@ legend("topright", legend = c("sd = 10", "sd = 50", "sd = 20", "sd = 5"),
 2.Repita o exercício anterior somente para as séries de desvio padrão 10 e 20, mas compare também os histogramas produzidos. Compare os resultados.
 
 ```{r}
-# Gerar os valores aleatórios para as séries com desvios padrão de 10 e 20
+# Gerar os valores aleatórios para as quatro séries
 set.seed(42)  # Define uma semente para reproduzibilidade dos resultados
 serie1 <- rnorm(100, mean = 50, sd = 10)
-serie2 <- rnorm(100, mean = 50, sd = 20)
+serie2 <- rnorm(100, mean = 50, sd = 50)
+serie3 <- rnorm(100, mean = 50, sd = 20)
+serie4 <- rnorm(100, mean = 50, sd = 5)
 
-par(mfrow=c(2, 2))  # Define a disposição dos gráficos em uma matriz de 2x2
+# Plotar os gráficos de densidade para as quatro séries
+par(mfrow = c(2, 2))  # Organiza o layout em uma matriz de 2x2
+plot(density(serie1), main = "sd = 10", xlab = "Valores", ylab = "Densidade", col = "blue")
+plot(density(serie2), main = "sd = 50", xlab = "Valores", ylab = "Densidade", col = "red")
+plot(density(serie3), main = "sd = 20", xlab = "Valores", ylab = "Densidade", col = "green")
+plot(density(serie4), main = "sd = 5", xlab = "Valores", ylab = "Densidade", col = "orange")
 
-# Plotar os gráficos de densidade para as duas séries
-plot(density(serie1), main = "Distribuição de Densidade (sd = 10)", 
-     xlab = "Valores", ylab = "Densidade", col = "blue")
-plot(density(serie2), main = "Distribuição de Densidade (sd = 20)", 
-     xlab = "Valores", ylab = "Densidade", col = "red")
+# Plotar os histogramas para as séries com desvio padrão 10 e 20
+hist(serie1, main = "Histograma - sd = 10", xlab = "Valores", ylab = "Frequência", col = "blue")
+hist(serie3, main = "Histograma - sd = 20", xlab = "Valores", ylab = "Frequência", col = "green")
 
-# Plotar os histogramas para as duas séries
-hist(serie1, main = "Histograma (sd = 10)", xlab = "Valores", ylab = "Frequência", col = "lightblue")
-hist(serie2, main = "Histograma (sd = 20)", xlab = "Valores", ylab = "Frequência", col = "pink")
+# Adicionar legenda
+legend("topright", legend = c("sd = 10", "sd = 50", "sd = 20", "sd = 5"),
+       col = c("blue", "red", "green", "orange"), lty = 1)
+
 
 
 ```
@@ -226,7 +232,7 @@ Considere a base.
 
 ```{r}
 df = read.csv('http://meusite.mackenzie.br/rogerio/TIC/mystocksn.csv')
-boxplot(DOLAR ~ data, data=df)
+boxplot(DOLAR ~ data, data=df, outlier = TRUE)
 ```
 
 O gráfico não exibe os quartis de cada data porque o boxplot está sendo gerado com a variável DOLAR como variável dependente e data como variável independente. Isso significa que o boxplot está mostrando a distribuição dos valores de DOLAR para cada data, não os quartis.
@@ -240,6 +246,7 @@ df$data <- as.Date(df$data)
 # Convertendo a variável 'data' para formato numérico
 df$data_numeric <- as.numeric(df$data)
 
-# Plotando o gráfico de caixa
-boxplot(data_numeric ~ DOLAR, data = df)
+# Plotando o gráfico de caixa sem exibir outliers
+boxplot(data_numeric ~ DOLAR, data = df, outlier=FALSE)
+
 ```
