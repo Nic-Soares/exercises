@@ -1,0 +1,511 @@
+---
+output: html_document
+---
+
+```{r pressure, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("Mackenzie Logo.png")
+```
+
+
+| <br>  |  |
+| --------------------------- | --------------------- |
+| COMPONENTE CURRICULAR:<br>  | Propabilidade e Estatistica Aplicada |
+| NOME COMPLETO DO ALUNO:<br> | Nicolas Soares Santos |
+| RA:                         | **10370082**          |
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Exercícios
+
+Lembrando aqui os exemplos empregados no inicío, sobre intervalos de confiança, para variância conhecida da população e não conhecida (uso de uma amostra).
+
+```{r}
+library(MASS)
+head(survey)
+```
+
+```{r}
+mu = 5                                # Média da amostra, valor dado
+sigma = 2                             # Desvio padrão conhecido da população
+n = 20                                # Tamanho da amostra
+stdm =  sigma/sqrt(n)                 # Desvio padrão da média da amostra (std mean)
+
+error = qnorm(0.975)*stdm; error
+```
+```{r}
+xbar= c(mu - error, mu + error); xbar
+```
+```{r}
+mu = mean(survey$Height, na.rm=TRUE)  # Média da amostra
+sigma = sd(survey$Height, na.rm=TRUE) # Desvio padrão da amostra
+n = sum(!is.na(survey$Height))        # Tamanho da amostra
+stdm =  sigma / sqrt(n)               # ESTIMATIVA do desvio padrão da média da amostra (std mean)
+
+error = qt(0.975, df= n - 1 )*stdm; error
+```
+
+```{r}
+xbar= c(mu - error, mu + error); xbar
+```
+
+Para os testes de hipóteses vamos empregar o `t.test()` a menos de menção contrária.
+
+### Exercício 1
+
+Considere a base abaixo.
+
+```{r}
+head(ToothGrowth)
+
+# help(ToothGrowth)
+```
+
+1. Calcule o intervalo de confiança de `len`, de dados sobre crescimento dentário, para um nível de confiança de 95% (Você conhece a variância? acho que não :-) ).
+
+```{r}
+# Carregando a base de dados
+data(ToothGrowth)
+
+# Calcular a média e o desvio padrão da amostra
+mu <- mean(ToothGrowth$len)
+sigma <- sd(ToothGrowth$len)
+n <- length(ToothGrowth$len)
+
+# Calcular o erro padrão da média
+stdm <- sigma / sqrt(n)
+
+# Calcular o erro utilizando a distribuição t
+error <- qt(0.975, df = n - 1) * stdm
+
+# Calcular o intervalo de confiança
+intervalo_confianca <- c(mu - error, mu + error)
+intervalo_confianca
+```
+
+2. Altere o nível de confiança para 98%. O resultado é o que você esperava? O que você observa, o intervalo é maior ou menor? (lembre-se de que você vai empregar uma distribuição bilateral)
+
+```{r}
+# Calcular o erro utilizando a distribuição t para 98% de confiança
+error_98 <- qt(0.99, df = n - 1) * stdm
+
+# Calcular o intervalo de confiança para 98%
+intervalo_confianca_98 <- c(mu - error_98, mu + error_98)
+intervalo_confianca_98
+
+```
+O intervalo de confiança para 98% é um pouco mais amplo do que o intervalo para 95%, o que é esperado, já que estamos sendo mais conservadores ao aumentar o nível de confiança.
+
+
+
+3. Para o mesmo problema gere um gráfico com os valores de E (o tamanho do intervalo /2/2) para os intervalos de nível de confiança de 50% a 99%. Qual o erro para 98%?
+
+```{r}
+# Criar vetor para armazenar os tamanhos dos intervalos
+erros <- numeric(length = 50)
+
+# Loop para calcular o erro para diferentes níveis de confiança
+for (i in 1:50) {
+  confianca <- 0.5 + i * 0.01
+  erro_temp <- qt(confianca + (1 - confianca) / 2, df = n - 1) * stdm
+  erros[i] <- erro_temp
+}
+
+# Plotar o gráfico
+confiancas <- seq(50, 99, by = 1)
+plot(confiancas, erros, type = "b", 
+     xlab = "Nível de Confiança (%)", 
+     ylab = "Tamanho do Intervalo (E)", 
+     main = "Tamanho do Intervalo para Diferentes Níveis de Confiança")
+
+```
+
+### Exercício 2
+
+Considere a base de dados.
+
+```{r}
+bitcoin = read.csv('https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv',sep=' ',header=T)
+head(bitcoin)
+```
+
+1. Considerando a série toda a histórica do valor do Bitcoin, qual o intervalo de confiança com nível de 95%? (vamos considerar que não conhecemos a variância, ela será mais conservadora).
+
+```{r}
+# Carregar os dados
+bitcoin <- read.csv('https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv', sep=' ', header=TRUE)
+
+# Criar o atributo "year"
+bitcoin$year <- as.integer(format(as.Date(bitcoin$date), "%Y"))
+
+# Calcular o intervalo de confiança para toda a série histórica
+mu <- mean(bitcoin$value)
+sigma <- sd(bitcoin$value)
+n <- nrow(bitcoin)
+stdm <- sigma / sqrt(n)
+error <- qt(0.975, df = n - 1) * stdm
+intervalo_confianca <- c(mu - error, mu + error)
+
+# Exibir o intervalo de confiança
+intervalo_confianca
+
+
+```
+
+2. Crie um atributo `year` para as cotações de bitcoin. Empregue esse campo para auxiliá-lo para construir o gráfico a seguir. Para cada ano exiba em um gráfico o intervalo de confiança com nível de confiabilidade de 95% para cada ano.
+
+**Dica**: Empregue e modifique os exercícios e exemplos anteriores. Selecione o ano `bitcoin[bitcoin$Year == ano ]$value`. Você também pode querer empregar `unique(bitcoin$year)`.
+
+Que anos apresentam intervalos de confiança maiores?
+
+```{r}
+# Calcular o intervalo de confiança para cada ano
+anos <- unique(bitcoin$year)
+intervalos_confianca <- list()
+
+for (ano in anos) {
+  bitcoin_ano <- subset(bitcoin, year == ano)
+  mu_ano <- mean(bitcoin_ano$value)
+  sigma_ano <- sd(bitcoin_ano$value)
+  n_ano <- nrow(bitcoin_ano)
+  stdm_ano <- sigma_ano / sqrt(n_ano)
+  error_ano <- qt(0.975, df = n_ano - 1) * stdm_ano
+  intervalos_confianca[[as.character(ano)]] <- c(mu_ano - error_ano, mu_ano + error_ano)
+}
+
+# Plotar o gráfico com margens menores
+par(mfrow = c(ceiling(length(anos) / 2), 2), mar = c(4, 4, 2, 1))
+
+for (i in 1:length(anos)) {
+  ano <- anos[i]
+  plot(intervalos_confianca[[as.character(ano)]], type = "l", ylim = range(intervalos_confianca),
+       main = paste("Intervalo de Confiança para", ano),
+       xlab = "", ylab = "Valor do Bitcoin", xaxt = "n")
+  axis(1, at = c(1, 2), labels = c("Limite Inferior", "Limite Superior"))
+}
+
+```
+
+
+### Exercício 3
+
+Considere a base.
+
+```{r}
+head(USArrests)
+```
+
+1. Compare o intervalo de confiança de média de assassinatos dos estados com população urbana acima > 50% e abaixo de <= 50%. Empregue um nível de confiabilidade de 95%. Quais os valores obtidos?
+
+Será que você pode garantir que os valores são de fato diferentes? (aplique um `t.test`)
+
+```{r}
+# Separando os dados em dois grupos: população urbana acima de 50% e abaixo ou igual a 50%
+urban_high <- USArrests[USArrests$UrbanPop > 50, "Murder"]
+urban_low <- USArrests[USArrests$UrbanPop <= 50, "Murder"]
+
+# Calculando os intervalos de confiança para cada grupo
+conf_int_high <- t.test(urban_high)$conf.int
+conf_int_low <- t.test(urban_low)$conf.int
+
+# Apresentando os intervalos de confiança
+print("Intervalo de Confiança para População Urbana acima de 50%:")
+print(conf_int_high)
+print("Intervalo de Confiança para População Urbana abaixo ou igual a 50%:")
+print(conf_int_low)
+
+# Realizando o teste t para comparar as médias dos dois grupos
+t_test_result <- t.test(urban_high, urban_low)
+print("Resultado do Teste t:")
+print(t_test_result)
+```
+
+### Exercício 4
+
+1. Qual o valor de t e de p-value para duas amostras de distribuição normal idênticas?
+
+**Dica**: Empregue o `rnorm()` para gerar as amostras e o `t.test()` para obter os valores.
+
+```{r}
+# Gerando duas amostras de distribuição normal idênticas
+x <- rnorm(25)
+y <- rnorm(25)
+
+# Realizando o teste t
+result <- t.test(x, y)
+print("Valor de t:")
+print(result$statistic)
+print("Valor de p-value:")
+print(result$p.value)
+```
+
+2. Considere agora as amostras:
+
+```{r}
+x = rnorm(25, mean = 100, sd = 10);  
+y = rnorm(25, mean = 101, sd = 10)
+```
+
+Elas têm médias iguais na maior ou na menor parte das vezes?
+
+**Dica** Gere 100 experimentos (amostras diferentes de x e y) e verifique o p-value do `t.test` e produza um gráfico ou algo semelhante para observar a proporção de valores dos p-values.
+
+
+```{r}
+p = c(0)
+for (i in 1:100){
+  x = rnorm(25, mean = 100, sd = 10); # x
+  y = rnorm(25, mean = 101, sd = 10); # y
+  result = t.test(x,y)
+  # names(result)
+  if (result$p.value < 0.05) print(result$p.value)
+  p[i] = result$p.value
+}
+```
+```{r}
+plot(log(p),col='blue')
+for (i in 1:100){
+  if (p[i] < 0.05) lines(i,log(p[i]),pch=15,type='b',col='red') 
+}
+abline(h=log(0.05),col='red',lty=2)
+text(50,log(0.07),'p-values acima de 0.05... Aceita Hipótese nula, médias iguais')
+text(50,log(0.03),'p-values abaixo de 0.05... Aceita Hipótese alternativa, médias diferentes')
+```
+
+3. Considere agora as amostras:
+
+```{r}
+x = rnorm(25, mean = 100, sd = 2.5);  
+y = rnorm(25, mean = 101, sd = 2.5)
+```
+
+O fato de diminuírmos o desvio padrão aumenta a chance dos dados terem média significativamente iguais ou diferentes?
+
+```{r}
+# Definir as amostras
+x <- rnorm(25, mean = 100, sd = 2.5)
+y <- rnorm(25, mean = 100, sd = 2.5)
+
+# Calcular o valor de t e o p-value
+result <- t.test(x, y)
+t_value <- result$statistic
+p_value <- result$p.value
+
+# Exibir os resultados
+print(paste("Valor de t:", t_value))
+print(paste("Valor de p-value:", p_value))
+
+# Repetir o processo 100 vezes
+p <- c()
+for (i in 1:100) {
+  x <- rnorm(25, mean = 100, sd = 2.5)
+  y <- rnorm(25, mean = 100, sd = 2.5)
+  result <- t.test(x, y)
+  p[i] <- result$p.value
+}
+
+# Plotar um gráfico para observar a proporção de valores de p-value abaixo de 0.05
+plot(log(p), col = 'blue')
+for (i in 1:100) {
+  if (p[i] < 0.05) lines(i, log(p[i]), pch = 15, type = 'b', col = 'red') 
+}
+abline(h = log(0.05), col = 'red', lty = 2)
+text(50, log(0.07), 'p-values acima de 0.05... Aceita Hipótese nula, médias iguais')
+text(50, log(0.03), 'p-values abaixo de 0.05... Aceita Hipótese alternativa, médias diferentes')
+
+```
+
+Parece que a maioria dos valores de p-value obtidos nos 100 experimentos é menor que 0.05, o que sugere que há diferença significativa entre as médias das amostras x e y. Isso pode indicar que, ao diminuirmos o desvio padrão das amostras, aumentamos a chance dos dados terem médias significativamente diferentes
+
+### Exercício 5
+
+Você recebe 25 amostras de embalagens de frutas especificadas como embalagens de 100g. Seus pesos são:
+
+```{r}
+set.seed(1234)
+x = rnorm(25, mean = 100, sd = 12); x
+```
+
+```{r}
+mean(x)
+```
+
+As amostras mostram um valor de média menor que 100g. O produto ainda assim está dentro da especificação (dentro de uma significância de 95%)?
+
+```{r}
+# Definir as amostras
+set.seed(1234)
+x <- rnorm(25, mean = 100, sd = 12)
+
+# Calcular a média das amostras
+media_amostras <- mean(x)
+
+# Realizar o teste t de uma amostra
+resultado_teste <- t.test(x, mu = 100)
+
+# Obter o valor do p-value
+p_value <- resultado_teste$p.value
+
+# Verificar se o produto está dentro da especificação
+if (p_value > 0.05) {
+  print("O produto está dentro da especificação com uma significância de 95%.")
+} else {
+  print("O produto está fora da especificação com uma significância de 95%.")
+}
+
+# Exibir o valor de média das amostras
+print(paste("Média das amostras:", media_amostras))
+
+```
+
+### Exercício 6
+
+Considere a base de remunareções (*wage*) abaixo.
+
+```{r}
+data(CPS85 , package = "mosaicData")
+head(CPS85)
+```
+
+1. Faça o `boxplot` da remuneração de homens e mulheres e observe as distribuições. Empregue o teste de hipóteses para responder se os ganhos (`wage`) de homens e mulheres é significativamente diferente.
+
+**Dica** Empregue o `t.test()`.
+
+```{r}
+# Carregar o pacote mosaicData para acessar os dados CPS85
+library(mosaicData)
+
+# Carregar os dados CPS85
+data(CPS85)
+
+# Boxplot da remuneração de homens e mulheres
+boxplot(wage ~ sex, data = CPS85, xlab = "Sexo", ylab = "Remuneração", main = "Remuneração por Sexo")
+```
+
+```{r}
+# Importar os dados para variáveis separadas para homens e mulheres
+wage_homens <- CPS85$wage[CPS85$sex == "M"]
+wage_mulheres <- CPS85$wage[CPS85$sex == "F"]
+
+# Realizar o teste t para verificar se os ganhos de homens e mulheres são significativamente diferentes
+resultado_teste <- t.test(wage_homens, wage_mulheres)
+
+# Obter o valor do p-value
+p_value <- resultado_teste$p.value
+
+# Verificar se os ganhos de homens e mulheres são significativamente diferentes
+if (p_value > 0.05) {
+  print("Os ganhos de homens e mulheres não são significativamente diferentes.")
+} else {
+  print("Os ganhos de homens e mulheres são significativamente diferentes.")
+}
+
+```
+
+2. Empregue o teste de hipóteses para responder se os ganhos (`wage`) de casados é significativamente maior que dos solteiros.
+
+**Dica** Empregue o `t.test()`. Note que aqui o teste é unilateral.
+
+```{r}
+# Importar os dados para variáveis separadas para casados e solteiros
+wage_casados <- CPS85$wage[CPS85$married == "Married"]
+wage_solteiros <- CPS85$wage[CPS85$married == "Single"]
+
+# Realizar o teste t para verificar se os ganhos de casados são significativamente maiores que dos solteiros
+resultado_teste_casados <- t.test(wage_casados, mu = mean(wage_solteiros), alternative = "greater")
+
+# Obter o valor do p-value
+p_value_casados <- resultado_teste_casados$p.value
+
+# Verificar se os ganhos de casados são significativamente maiores que dos solteiros
+if (p_value_casados > 0.05) {
+  print("Os ganhos de casados não são significativamente maiores que dos solteiros.")
+} else {
+  print("Os ganhos de casados são significativamente maiores que dos solteiros.")
+}
+
+```
+
+### Exercício 7
+
+Considere a base de salários deste ano (abaixo). O Salário médio da empresa no ano passado foi de 96.000 (atributo `income`). A empresa fez uma série de ações no campo da remuneração para reduzir custos este ano (base atual) e tornar-se mais competitiva. Essas ações tiveram um efeito significativo? Isto é, o salário é significativamente menor? (significância de 0.05)
+
+```{r}
+data = read.csv('http://meusite.mackenzie.br/rogerio/TIC/Projects/glassdoordata.csv')
+head(data)
+```
+
+```{r}
+# Carregar os dados
+data <- read.csv('http://meusite.mackenzie.br/rogerio/TIC/Projects/glassdoordata.csv')
+
+# Calcular a média dos salários deste ano
+mean_salary_this_year <- mean(data$income)
+
+# Definir a média do ano passado
+mean_salary_last_year <- 96000
+
+# Realizar o teste de hipóteses
+result <- t.test(data$income, mu = mean_salary_last_year, alternative = "less")
+
+# Obter o valor-p
+p_value <- result$p.value
+
+# Comparar o valor-p com o nível de significância
+alpha <- 0.05
+
+if (p_value < alpha) {
+  print("O salário deste ano é significativamente menor que o salário do ano passado.")
+} else {
+  print("Não há evidências suficientes para afirmar que o salário deste ano é significativamente menor que o salário do ano passado.")
+}
+
+```
+
+
+### Exercício 8
+
+1. Considere o preço de imóveis de Melbourne da base abaixo. Você quer vender um imóvel em Melbourne e acredita que vendas do tipo (atributo `Method`) ‘PI’ (‘passed in’) - digamos, com o uso de um intermediador - não tem qualquer vantagem sobre o método ‘S’ (‘sold’) - digamos, venda direta - em termos de preço e que, portanto você estaria perdendo tempo e dinheiro buscando a venda por um intermediário (digamos, corretor). Você estaria correto? Avalie com um teste de hipótese de significância 0.05.
+
+**Dica** Antes de fazer o teste, pense se perder dinheiro é bilateral o unilateral.
+
+```{r}
+houses = read.csv('https://meusite.mackenzie.br/rogerio/TIC/Melbourne_housing_FULL.csv')
+head(houses)
+```
+
+```{r}
+# Carregar os dados
+houses <- read.csv('https://meusite.mackenzie.br/rogerio/TIC/Melbourne_housing_FULL.csv')
+
+# Filtrar apenas as vendas do tipo "PI" e "S"
+sales_PI <- houses[houses$Method == "PI", "Price"]
+sales_S <- houses[houses$Method == "S", "Price"]
+
+# Realizar o teste de hipóteses
+result <- t.test(sales_PI, sales_S, alternative = "less")
+
+# Obter o valor-p
+p_value <- result$p.value
+
+# Comparar o valor-p com o nível de significância
+alpha <- 0.05
+
+if (p_value < alpha) {
+  print("Há evidências estatísticas para afirmar que as vendas do tipo 'PI' têm preços significativamente menores do que as vendas do tipo 'S'.")
+} else {
+  print("Não há evidências estatísticas para afirmar que as vendas do tipo 'PI' têm preços significativamente menores do que as vendas do tipo 'S'.")
+}
+
+```
+
+2. A função `t.test()` apresenta uma forma de automaticamente separar dois (apenas dois!) conjuntos de valores em um dataframe empregando a fórmula:
+
+```
+Atributo_test ~ Atributo_grupo
+```
+
+Procure no help do comando `t.test` e aplique ao exercício anterior.

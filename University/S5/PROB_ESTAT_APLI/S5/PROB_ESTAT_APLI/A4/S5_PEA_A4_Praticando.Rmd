@@ -1,0 +1,330 @@
+---
+output: html_document
+---
+
+```{r pressure, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("/home/nicolas/pCloudDrive/Ensino Superior/ADS-MKZ/Documentos_Apoio/Mackenzie Logo.png")
+```
+
+
+| <br>  |  |
+| --------------------------- | --------------------- |
+| COMPONENTE CURRICULAR:<br>  | Propabilidade e Estatistica Aplicada |
+| NOME COMPLETO DO ALUNO:<br> | Nicolas Soares Santos |
+| RA:                         | **10370082**          |
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(ggplot2)
+```
+
+# Exercícios
+
+----
+
+## Exercício 1
+
+1.Em uma companhia de Seguros 80% das pessoas que compram seguro de veículos são homens. Se 100 proprietários de seguros forem selecionados aleatoriamente, encontre a probabilidade de que exatamente 12 sejam mulheres.
+
+*Dica:* Empregue a distribuição binomial.
+
+<br>
+
+**1.1. Distribuição binomial:**
+
+A probabilidade de obter k sucessos em n tentativas independentes, com probabilidade de sucesso p em cada tentativa, é dada pela Distribuição Binomial:
+
+
+$$
+P(X = k) = \binom{n}{k} \cdot p^k \cdot (1 - p)^{n - k}
+$$
+
+```{r}
+# Definindo a função pmf
+pmf <- function(k, n, p) {
+  return ( factorial(n) / ( ( factorial(k) * factorial(n - k) ) ) * p**k * (1-p)**(n-k) )
+}
+
+```
+
+<br>
+
+**1.2. Parâmetros da distribuição:**
+
+n = 100: Número de segurados selecionados.
+
+k = 12: Número de mulheres desejado.
+
+p = 0.2: Probabilidade de selecionar uma mulher (20% da base).
+
+<br>
+
+**1.3. Cálculo da probabilidade:**
+
+Utilizando a fórmula da Distribuição Binomial e os parâmetros definidos, calculamos a probabilidade:
+
+$$
+P(12) = \binom{100}{12} \cdot 0.2^12 \cdot (1 - 0.2)^{100 - 12}
+$$
+```{r}
+# Definindo os parâmetros
+n <- 100  # Número de segurados selecionados
+k <- 12   # Número de mulheres desejado
+p <- 0.2  # Probabilidade de selecionar uma mulher
+
+# Calculando a probabilidade
+probabilidade <- pmf(k, n, p)
+
+# Imprimindo a probabilidade
+print(probabilidade)
+```
+
+
+```{r}
+prob_exato <- dbinom(k, n, p)
+
+print(prob_exato)
+```
+<br>
+
+**1.4. Interpretação do resultado:**
+
+A probabilidade de que, em uma seleção aleatória de 100 segurados, exatamente 12 sejam mulheres é de aproximadamente 1.28%.
+
+----
+
+**2.Mensalmente a empresa vai sortear grupos de 100 clientes e enviar brindes para as clientes do sexo feminino. Quantos brindes para mulheres devem ser comprados para garantir em 95% dos grupos sorteados?**
+
+
+
+```{r}
+# Calcular o número mínimo de brindes necessários
+probabilidade_de_sucesso <- 0.5 # Proporção de clientes do sexo feminino (exemplo)
+k <- qbinom(0.05, 100, prob = probabilidade_de_sucesso, lower.tail = TRUE)
+
+# Ajustar para garantir que todas as mulheres recebam um brinde
+numero_maximo_mulheres <- 100 * probabilidade_de_sucesso + 1 # Considerar arredondamento
+
+numero_brindes_necessarios <- max(k, numero_maximo_mulheres)
+
+print(paste('Para garantir em 95% dos grupos sorteados, é recomendado comprar pelo menos', numero_brindes_necessarios, 'brindes para mulheres.'))
+
+```
+
+<br>
+
+----
+
+3.Mensalmente a empresa vai sortear grupos de 100 clientes e enviar brindes para as clientes do sexo feminino. Dentre os brindes haverá viagem em grupo. Há entretanto uma limitação de 18 passageiros para o pacote de viagem. Qual o percentual de grupos deve ser atendido com esse número?
+
+<br>
+
+```{r}
+# Calcular o percentual de grupos atendidos com limite de 18 passageiros
+probabilidade_de_sucesso <- 0.5 # Proporção de clientes do sexo feminino (exemplo)
+
+# Probabilidade de ter 18 ou mais passageiros
+probabilidade_atendidos <- 1 - pbinom(17, 100, prob = probabilidade_de_sucesso)
+
+# Ajustar para considerar grupos com mais de 18 mulheres
+probabilidade_atendidos <- min(probabilidade_atendidos, 1)
+
+percentual_atendimento <- probabilidade_atendidos * 100
+
+print(paste('O percentual de grupos atendidos com o limite de 18 passageiros por viagem é de aproximadamente', percentual_atendimento, '%.'))
+
+```
+---
+
+**4.A empresa deveria rever a campanha de viagens, por exemplo incluindo mais um transporte para 18 passageiros? Se sim, qual o percentual passaria a ser atendido.**
+
+**4.1. Necessidade de Revisão:**
+
+
+**4.2. Impacto da Inclusão de Mais um Transporte:**
+
+
+```{r}
+# Calcular o percentual de grupos não atendidos
+percentual_nao_atendidos <- 100 - percentual_atendimento
+
+# Calcular o percentual de grupos atendidos com 2 transportes de 18 passageiros
+probabilidade_atendidos_2_transportes <- 1 - pbinom(35, 100, prob = probabilidade_de_sucesso)
+
+# Ajustar para considerar grupos com mais de 36 mulheres
+probabilidade_atendidos_2_transportes <- min(probabilidade_atendidos_2_transportes, 1)
+
+percentual_atendimento_2_transportes <- probabilidade_atendidos_2_transportes * 100
+
+print(paste('O percentual de grupos não atendidos com o limite de 18 passageiros por viagem é de aproximadamente', percentual_nao_atendidos, '%.'))
+
+print(paste('O percentual de grupos atendidos com dois transportes de 18 passageiros é de aproximadamente', percentual_atendimento_2_transportes, '%.'))
+
+```
+
+----
+
+## Exercício 2
+
+1.Uma bateria (pilha) tem duração média de 60 horas com uma distribuição normal desvio padrão de 3 horas. Qual é a probabilidade de uma bateria durar menos de 65 horas?
+
+*Dica:* menos de 65h = até 65h (estamos trabalhando com dados contínuos)
+
+```{r}
+mu <- 60
+sigma <- 3
+
+```
+
+
+```{r}
+prob_menos_65 <- pnorm(65, mean = mu, sd = sigma)
+cat("Probabilidade de uma bateria durar menos de 65 horas:", prob_menos_65, "\n")
+
+```
+<br>
+
+2.Qual a probabilidade da pilha durar mais que a média?
+
+```{r}
+prob_mais_media <- 1 - pnorm(mu, mean = mu, sd = sigma)
+cat("Probabilidade da pilha durar mais que a média:", prob_mais_media, "\n")
+```
+<br>
+
+3.Qual a probabilidade da pilha durar mais que 65h?
+
+```{r}
+prob_mais_65 <- 1 - pnorm(65, mean = mu, sd = sigma)
+cat("Probabilidade da pilha durar mais que 65 horas:", prob_mais_65, "\n")
+```
+<br>
+
+## Exercício 3
+
+1.Um servidor tem duração média de 18000 horas ininterruptas de operação, sem falhas de Hardware, com uma distribuição normal de desvio padrão de 500 horas. Em um novo Data Center foram instalados 1000 desses servidores. A empresa quer fazer uma reserva para as manutenções. Quantos servidores é esperado apresentar falhas até o segundo ano?
+
+1 ano = 8760 horas
+
+2 anos = 17520
+
+3 anos = 26280
+
+<br>
+
+$$
+f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2} \left(\frac{x - \mu}{\sigma}\right)^2}
+$$
+
+
+```{r}
+# Parâmetros
+media <- 18000
+desvio_padrao <- 500
+n_servidores <- 1000
+horas_ano <- 8760
+```
+
+
+```{r}
+# Probabilidade de falha até o segundo ano
+horas_segundo_ano <- 2 * horas_ano
+falha_segundo_ano <- pnorm(horas_segundo_ano, mean = media, sd = desvio_padrao)
+servidores_falha_segundo_ano <- n_servidores * falha_segundo_ano
+cat("Número esperado de servidores com falhas até o segundo ano:", servidores_falha_segundo_ano, "\n")
+```
+<br>
+
+2.Quantos servidores devem apresentar falha no terceiro ano?
+
+```{r}
+# Probabilidade de falha até o terceiro ano
+horas_terceiro_ano <- 3 * horas_ano
+falha_terceiro_ano <- pnorm(horas_terceiro_ano, mean = media, sd = desvio_padrao)
+servidores_falha_terceiro_ano <- n_servidores * falha_terceiro_ano
+cat("Número esperado de servidores com falhas até o terceiro ano:", servidores_falha_terceiro_ano, "\n")
+```
+<br>
+
+## Exercício 4
+
+1.Notas de rendimento escolar, vestibulares e concursos em geral seguem uma distribuição normal, do mesmo modo que o QI. Neste ano a pontuação média para uma determinada carreira foi de 72 pontos com um desvio padrão de 12. Qual o percentual de de alunos com 84 ou mais pontos nesse exame?
+
+```{r}
+media <- 72
+desvio_padrao <- 12
+ponto <- 84
+
+percentual_84_mais <- 100 * (1 - pnorm(ponto, mean = media, sd = desvio_padrao))
+cat("Percentual de alunos com 84 ou mais pontos:", percentual_84_mais, "%\n")
+
+```
+<br>
+
+2.Qual é a porcentagem de alunos com até 70 pontos no exame?
+
+```{r}
+ponto <- 70
+
+percentual_70_menos <- 100 * pnorm(ponto, mean = media, sd = desvio_padrao)
+cat("Porcentagem de alunos com até 70 pontos:", percentual_70_menos, "%\n")
+
+```
+<br>
+
+3.Qual a nota dos alunos abaixo e acima dos percentis de 10% e 90% de notas?
+*Dica:* empregue `round()` para arredondar o valor para pontos inteiros
+
+```{r}
+percentil_10 <- qnorm(0.10, mean = media, sd = desvio_padrao)
+percentil_90 <- qnorm(0.90, mean = media, sd = desvio_padrao)
+
+nota_abaixo_10_percentil <- round(percentil_10)
+nota_acima_90_percentil <- round(percentil_90)
+
+cat("Nota abaixo do percentil de 10%:", nota_abaixo_10_percentil, "\n")
+cat("Nota acima do percentil de 90%:", nota_acima_90_percentil, "\n")
+
+
+```
+<br>
+
+4.Qual a nota de corte para abranger 75% dos candidatos para uma segunda fase?
+
+*Dica:* empregue `round()` para arredondar o valor para pontos inteiros
+
+*Dica:* veja que a nota de corte permite que mais alunos participem da segunda fase. É, portanto, em geral um valor abaixo da média!
+
+```{r}
+percentil_75 <- qnorm(0.75, mean = media, sd = desvio_padrao)
+nota_corte_segunda_fase <- round(percentil_75)
+
+cat("Nota de corte para abranger 75% dos candidatos para uma segunda fase:", nota_corte_segunda_fase, "\n")
+
+```
+<br>
+
+## Exercício 5
+
+Nos gráficos abaixo você encontra valores aleatórios gerados para diferentes distribuições que, assim como a distribuição binomial e normal, aparecem para um grande número de problemas. Note que empregamos a função `r-<nome-da-distribuição>` e para cada uma delas você encontrará também as funções de densidade de probabilidade (`d-<nome-da-distribuição>`), probabilidade acumulada (`p-<nome-da-distribuição>`) e quartis (`q-<nome-da-distribuição>`).
+
+Agora, observe as distribuições abaixo e responda: que 3 distribuições estariam mais próximas de representar (a) a distribuição de renda entre os brasileiros e (b) a altura em cm dos brasileiros? (considere apenas a forma das curvas, os valores empregados foram aleatórios e não estão centrados na renda ou altura dos brasileiros).
+
+```{r}
+par(mfrow = c(2, 3))
+set.seed(1234)
+plot(density(rexp(n=1000,rate=1/3)),main='exp')
+plot(density(rf(n=1000,df1=100,df2=10)),main='F')
+plot(density(rgamma(n=1000,shape=1)),main='gamma')
+plot(density(rpois(n=1000,lambda=10)),main='poisson')
+plot(density(rchisq(n=1000,df=20)),main='Chi 2')
+plot(density(rt(n=1000,df=10)),main='t-Student')
+```
+
+**Distribuição de Renda entre os Brasileiros (a):**
+A distribuição de renda geralmente segue uma distribuição assimétrica positiva, onde a maioria dos indivíduos tem uma renda baixa a moderada e uma pequena porcentagem de pessoas tem uma renda muito alta. Com base na forma da curva, a distribuição gamma (gamma) parece ser a mais próxima para representar a distribuição de renda entre os brasileiros.
+
+**Altura em cm dos Brasileiros (b):**
+A distribuição de altura entre os brasileiros é mais próxima de uma distribuição normal, com a maioria das pessoas concentradas em torno da altura média e menos pessoas nas extremidades inferior e superior da distribuição. No entanto, a distribuição t-Student (t-Student) também pode ser considerada, pois tem caudas mais pesadas do que a distribuição normal, o que poderia capturar melhor a variabilidade nas extremidades da distribuição de altura.
