@@ -1,0 +1,259 @@
+---
+output: html_document
+---
+
+```{r pressure, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("Mackenzie Logo.png")
+```
+
+
+| <br>  |  |
+| --------------------------- | --------------------- |
+| COMPONENTE CURRICULAR:<br>  | Propabilidade e Estatistica Aplicada |
+| NOME COMPLETO DO ALUNO:<br> | Nicolas Soares Santos |
+| RA:                         | **10370082**          |
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+-----
+
+# Exercício 1
+
+Considere a base.
+
+```{r}
+require(stats)
+head(stackloss)
+```
+
+```{r}
+help(stackloss)
+```
+
+1.Qual a função linear que melhor aproxima stack.loss com base nos demais valores?
+
+```{r}
+# Ajustando o modelo de regressão linear
+fit <- lm(stack.loss ~ Air.Flow + Water.Temp + Acid.Conc., data = stackloss)
+
+# Exibindo o resumo do modelo
+print(summary(fit))
+
+```
+
+
+2.Faça uma predição do valor de stock.loss para os valores de Air.Flow=72, Water.Temp=20, Acid.Conc=85.
+
+```{r}
+# Criando um novo conjunto de dados para a predição
+new_data <- data.frame(Air.Flow = 72, Water.Temp = 20, Acid.Conc. = 85)
+
+# Fazendo a predição
+prediction <- predict(fit, newdata = new_data)
+
+# Exibindo o valor predito
+print(prediction)
+
+```
+
+3.A instância Air.Flow=72, Water.Temp=20, Acid.Conc=85 está presente na base. Quanto o valor obtido pelo modelo esse valor difere do valor encontrado na base?
+
+```{r}
+# Encontrando o valor real presente na base
+real_value <- stackloss[stackloss$Air.Flow == 72 & stackloss$Water.Temp == 20 & stackloss$Acid.Conc. == 85, "stack.loss"]
+
+# Calculando a diferença percentual
+difference <- ((prediction - real_value) / real_value) * 100
+
+# Exibindo a diferença percentual
+print(difference)
+
+```
+
+4.Qual atributo contribui mais positivamente para o incremento de stackloss?
+
+Isso pode ser identificado pelo coeficiente associado ao atributo (coeficientes maiores tem um efeito maior). Entretanto, as variáveis encontram-se em escalas diferentes e, portanto, você precisa normalizar os dados antes de observar os coeficientes da regressão. Você pode empregar a função abaixo para uma normalização min-max (levando todos valores de cada atributo ao intervalo [0,1]).
+
+```{r}
+normalize <- function(x) {
+return ((x - min(x)) / (max(x) - min(x)))
+}
+  
+stack_n = as.data.frame(lapply(stackloss, normalize))
+summary(stack_n)
+```
+
+
+```{r}
+# Normalizando os dados
+normalize <- function(x) {
+  return ((x - min(x)) / (max(x) - min(x)))
+}
+
+stack_n <- as.data.frame(lapply(stackloss, normalize))
+
+# Ajustando um novo modelo com dados normalizados
+fit_n <- lm(stack.loss ~ Air.Flow + Water.Temp + Acid.Conc., data = stack_n)
+
+# Exibindo os coeficientes do modelo ajustado
+print(coefficients(fit_n))
+
+```
+
+
+5.A regressão linear obtida é uma boa aproximação dos dados (R-squared > 0.85)? Qual o valor do (Multiple) R-squared obtido?
+
+```{r}
+# Exibindo o resumo do modelo para verificar o R-squared
+print(summary(fit)$r.squared)
+
+```
+
+# Exercício 2
+Considere o exercício anterior. Elimine o atributo que não é significativo para a regressão e recalcule.
+
+```{r}
+# Ajustando um novo modelo sem o atributo não significativo (Acid.Conc.)
+fit_new <- lm(stack.loss ~ Air.Flow + Water.Temp, data = stackloss)
+
+# Exibindo o resumo do novo modelo
+print(summary(fit_new))
+
+```
+
+Qual o novo valor do (Multiple) R-squared obtido?
+
+```{r}
+# Exibindo o novo valor de R-squared
+print(summary(fit_new)$r.squared)
+
+```
+
+3.Qual a função linear obtida?
+
+```{r}
+# Exibindo os coeficientes do novo modelo
+print(coefficients(fit_new))
+
+```
+
+4.Modelos com com menos variáveis preditoras são modelos preferíveis pois assumem uma menor quantidade de hipóteses sobre os dados (procure na Internet, Occam’s razor ou princípio da parcimônia). Sendo a diferença do (Multiple) R-squared obtido no exercício anterior e nesta agora menor que 5%, este agora é um modelo melhor?
+
+```{r}
+# Calculando a diferença percentual dos R-squared
+old_r_squared <- summary(fit)$r.squared
+new_r_squared <- summary(fit_new)$r.squared
+
+difference_percent <- ((new_r_squared - old_r_squared) / old_r_squared) * 100
+
+# Verificando se a diferença é menor que 5%
+if (abs(difference_percent) < 5) {
+  print("Sim, o novo modelo é melhor.")
+} else {
+  print("Não, o modelo anterior é melhor.")
+}
+```
+
+
+# Exercício 3
+Considere a base.
+
+```{r}
+df = read.csv('FuelConsumptionCo2.csv',header=T)
+head(df)
+```
+
+1.Construa um modelo de regressão e faça o gráfico da regressão obtida mostrando a aproximação com os dados.
+
+```{r}
+# Carregando a biblioteca necessária
+library(ggplot2)
+
+# Construindo o modelo de regressão
+fit <- lm(CO2EMISSIONS ~ FUELCONSUMPTION_COMB, data = df)
+
+# Plotando o gráfico de dispersão com a reta de regressão
+ggplot(df, aes(x = FUELCONSUMPTION_COMB, y = CO2EMISSIONS)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(title = "Regressão de CO2EMISSIONS vs FUELCONSUMPTION_COMB",
+       x = "FUELCONSUMPTION_COMB",
+       y = "CO2EMISSIONS")
+
+```
+
+
+2.Qual o valor do (Multiple) R-squared obtido?
+
+```{r}
+# Exibindo o valor de R-squared
+print(summary(fit)$r.squared)
+
+```
+
+3.Estime as emissões de CO2EMISSIONS a partir de valores de FUELCONSUMPTION_COMB para os valores 10 e 25. Quais os valores obtidos?
+
+```{r}
+# Criando um novo conjunto de dados para predição
+new_data <- data.frame(FUELCONSUMPTION_COMB = c(10, 25))
+
+# Realizando a predição
+predictions <- predict(fit, newdata = new_data)
+
+# Exibindo as predições
+print(predictions)
+
+```
+
+4.Acrescente ao seu modelo a variável de entrada ENGINESIZE.
+
+```{r}
+# Acrescentando a variável ENGINESIZE ao modelo
+fit_with_enginesize <- lm(CO2EMISSIONS ~ FUELCONSUMPTION_COMB + ENGINESIZE, data = df)
+
+# Exibindo o resumo do novo modelo
+print(summary(fit_with_enginesize))
+
+```
+
+4.1. Qual a função linear obtida?
+
+```{r}
+# Exibindo os coeficientes do novo modelo
+print(coefficients(fit_with_enginesize))
+
+```
+
+
+4.2. Qual o novo valor do (Multiple) R-squared obtido? Esse é um modelo melhor que o anterior?
+
+```{r}
+# Exibindo o valor de R-squared do novo modelo
+print(summary(fit_with_enginesize)$r.squared)
+
+# Comparando os R-squared dos dois modelos
+if (summary(fit_with_enginesize)$r.squared > summary(fit)$r.squared) {
+  print("Sim, o novo modelo é melhor que o anterior.")
+} else {
+  print("Não, o modelo anterior é melhor.")
+}
+
+```
+
+
+5.Faça agora a predição de CO2EMISSIONS com base no modelo anterior, para FUELCONSUMPTION_COMB = 10 e ENGINESIZE=2. Qual o valor encontrado?
+
+```{r}
+# Criando um novo conjunto de dados para predição
+new_data <- data.frame(FUELCONSUMPTION_COMB = 10, ENGINESIZE = 2)
+
+# Realizando a predição
+prediction <- predict(fit_with_enginesize, newdata = new_data)
+
+# Exibindo a predição
+print(prediction)
+
+```

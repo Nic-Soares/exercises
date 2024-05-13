@@ -1,0 +1,292 @@
+---
+output: html_document
+---
+
+```{r pressure, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("Mackenzie Logo.png")
+```
+
+
+| <br>  |  |
+| --------------------------- | --------------------- |
+| COMPONENTE CURRICULAR:<br>  | Propabilidade e Estatistica Aplicada |
+| NOME COMPLETO DO ALUNO:<br> | Nicolas Soares Santos |
+| RA:                         | **10370082**          |
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Exercícios
+
+---
+
+#### Exercício 1
+
+Crie um modelo de regressão logística para classificar os veículos de mtcars como automáticos e não automáticos (atributo am), tendo como base as variáveis preditoras hp, e peso, wt. É o mesmo que criamos no material de teoria, mas agora, tente criar o modelo por conta própria!
+
+```{r}
+# Criar o modelo de regressão logística
+modelo_logistico <- glm(am ~ hp + wt, data = mtcars, family = "binomial")
+
+# Visualizar o resumo do modelo
+summary(modelo_logistico)
+```
+
+Empregue o modelo obtido para fazer predição de TODOS os veículos de mtcars. Compare os valores da predição com os valores reais da base. Verifique o número de acertos e erros do modelo.
+
+- Quantos veículos foram classificados corretamente?
+- Qual o percentual de acerto?
+
+```{r}
+# Fazer previsões com o modelo
+predictions <- predict(modelo_logistico, newdata = mtcars, type = "response")
+
+# Converter as probabilidades em classes (0 ou 1) usando um limite de 0.5
+predicted_classes <- ifelse(predictions > 0.5, 1, 0)
+
+# Comparar as previsões com os valores reais da variável am
+num_acertos <- sum(predicted_classes == mtcars$am)
+num_erros <- length(mtcars$am) - num_acertos
+
+# Calcular o percentual de acerto
+percentual_acerto <- (num_acertos / length(mtcars$am)) * 100
+
+# Exibir os resultados
+cat("Número de veículos classificados corretamente:", num_acertos, "\n")
+cat("Número de veículos classificados erroneamente:", num_erros, "\n")
+cat("Percentual de acerto:", percentual_acerto, "%\n")
+
+```
+
+---
+
+#### Exercício 2
+
+Empregue agora a base de dados Cars93.
+
+```{r}
+library(MASS)
+head(Cars93)
+```
+
+
+1. Crie um modelo de regressão logística para classificar a origem dos veículos a partir dos valores de Price, Weight e Length.
+   1.1 Qual atributo apresenta coeficiente com pouca significância?
+   
+**Dica:** Certifique-se de não haver dados ausentes a serem empregados na regressão. Você precisará também converter o atributo objetivo para numérico, 1 e 0, ou adicionar um novo campo para isso.
+
+```{r}
+# Verificar se há dados ausentes
+sum(is.na(Cars93))
+
+# Converter o atributo "Origin" para numérico (1 e 0)
+Cars93$Origin <- ifelse(Cars93$Origin == "non-USA", 0, 1)
+
+# Criar o modelo de regressão logística
+modelo_logistico <- glm(Origin ~ Price + Weight + Length, family = "binomial", data = Cars93)
+
+# Visualizar os resultados
+summary(modelo_logistico)
+
+# Identificar atributo com coeficiente com pouca significância
+coeficientes <- summary(modelo_logistico)$coefficients
+p_valores <- coeficientes[, 4]
+atributo_nao_significativo <- names(which(p_valores > 0.05))
+cat("Atributo com coeficiente com pouca significância:", atributo_nao_significativo, "\n")
+
+```
+
+
+2. Retire o atributo que apresenta o coeficiente da regressão com pouca significância e recrie o modelo sem ele. Este será um modelo com menos hipóteses e portanto melhor. Todos os coeficientes apresentam agora p-value < 0.05 (são portanto significativos)? Qual atributo apresenta menor p-value?
+
+```{r}
+# Remover o atributo com pouca significância
+Cars93_sem_weight <- Cars93[, !colnames(Cars93) %in% c("Weight")]
+
+# Refazer o modelo sem o atributo "Weight"
+modelo_logistico_sem_weight <- glm(Origin ~ Price + Length, family = "binomial", data = Cars93_sem_weight)
+# Visualizar os resultados do novo modelo
+summary(modelo_logistico_sem_weight)
+
+# Atributo com menor p-value
+print("O atributo com menor p-value é:")
+print(which.min(summary(modelo_logistico_sem_weight)$coef[, "Pr(>|z|)"]))
+
+```
+
+3. Faça agora, com o modelo construído, uma predição da origem dos veículos com as características abaixo. Qual a origem estimada de cada veículo?
+
+
+```{r}
+# Criar um novo conjunto de dados com as características fornecidas
+novos_dados <- data.frame(Price = c(17, 19, 21), Length = c(150, 170, 190))
+
+# Fazer previsões com o modelo sem o atributo removido
+predicoes <- predict(modelo_logistico_sem_weight, newdata = novos_dados, type = "response")
+
+# Exibir as previsões
+cat("Origem estimada dos veículos:")
+ifelse(predicoes > 0.5, "USA", "non-USA")
+
+```
+
+---
+
+#### Exercício 3
+
+Considere a base.
+
+```{r}
+df = read.csv('FuelConsumptionCo2.csv',header=T)
+# head(df)
+```
+
+```{r}
+table(df$FUELTYPE)
+```
+
+Crie um modelo logístico para classificar os veículos, com base nos dados de consumo de combinado de combustível FUELCONSUMPTION_COMB e emissões CO2EMISSIONS, em veículos de gasolina especial ‘X’ e demais combustíveis (atributo FUELTYPE).
+
+**Dica:** FUELTYPE tem mais de dois valores e a regressão logística somente pode classificar em combustível ‘X’ ou não ‘X’. Crie um novo atributo FUELX, com 1 se ‘X’ ou 0 caso contrário, e faça a regressão logística sobre esse valor.
+
+1. Todos os coeficientes são significativos?
+
+```{r}
+# Criar o novo atributo FUELX
+df$FUELX <- ifelse(df$FUELTYPE == "X", 1, 0)
+
+# Criar o modelo logístico
+modelo_logistico <- glm(FUELX ~ FUELCONSUMPTION_COMB + CO2EMISSIONS, data = df, family = "binomial")
+
+# Visualizar os resultados do modelo
+summary(modelo_logistico)
+
+# Todos os coeficientes são significativos?
+print("Todos os coeficientes são significativos?")
+print(all(summary(modelo_logistico)$coef[, "Pr(>|z|)"] < 0.05))
+
+
+```
+
+2. Estime a probabilidade (na verdade a ‘chance logística’, isto é o valor de retorno da função logística) de um veículo com ‘FUELCONSUMPTION_COMB’=9, ‘CO2EMISSIONS’=180 ser um veículo de gasolina especial ‘X’.
+
+```{r}
+# Estimar a probabilidade (chance logística)
+fuel_comb <- 9
+co2_emissions <- 180
+prob <- predict(modelo_logistico, newdata = data.frame(FUELCONSUMPTION_COMB = fuel_comb, CO2EMISSIONS = co2_emissions), type = "response")
+
+print("A chance logística de um veículo com FUELCONSUMPTION_COMB = 9 e CO2EMISSIONS = 180 ser um veículo de gasolina especial 'X' é:")
+print(prob)
+
+
+```
+
+3. Empregue o seu modelo e obtenha a predição para todos os veículos da base. Compare os valores da predição com os valores reais da base. Verifique o número de acertos e erros do modelo. Qual percentual de acerto? (responda o valor entre 0 e 1, isto é 60% = 0.6)
+
+```{r}
+# Predição para todos os veículos da base
+predicao <- predict(modelo_logistico, type = "response")
+
+# Converter a probabilidade em classes (0 ou 1)
+predicao_classes <- ifelse(predicao > 0.5, 1, 0)
+
+# Verificar acertos e erros do modelo
+num_acertos <- sum(predicao_classes == df$FUELX)
+num_erros <- sum(predicao_classes != df$FUELX)
+percentual_acerto <- num_acertos / nrow(df)
+
+print("Número de acertos:")
+print(num_acertos)
+
+print("Número de erros:")
+print(num_erros)
+
+print("Percentual de acerto:")
+print(percentual_acerto)
+
+
+```
+
+4. Adicione ao modelo os atributos ENGINESIZE e CYLINDERS e compare novamente os valores da predição com os valores reais da base. Qual percentual de acerto agora? (responda o valor entre 0 e 1, isto é 60% = 0.6)
+
+```{r}
+# Adicionar ENGINESIZE e CYLINDERS ao modelo
+modelo_logistico_completo <- glm(FUELX ~ FUELCONSUMPTION_COMB + CO2EMISSIONS + ENGINESIZE + CYLINDERS, data = df, family = "binomial")
+
+# Predição para todos os veículos da base com o modelo completo
+predicao_completa <- predict(modelo_logistico_completo, type = "response")
+
+# Converter a probabilidade em classes (0 ou 1)
+predicao_classes_completa <- ifelse(predicao_completa > 0.5, 1, 0)
+
+# Verificar acertos e erros do modelo completo
+num_acertos_completo <- sum(predicao_classes_completa == df$FUELX)
+percentual_acerto_completo <- num_acertos_completo / nrow(df)
+
+print("Percentual de acerto com o modelo completo:")
+print(percentual_acerto_completo)
+
+```
+
+---
+
+#### Exercício 4
+
+Considere a base.
+
+```{r}
+library(MASS)
+help("biopsy")
+```
+
+```{r}
+bio = na.omit(biopsy[,-c(1)]) # 1 = ID
+bio$class = as.numeric(bio$class) - 1 
+head(bio)
+```
+
+Implemente um modelo logístico para classificação “benign” ou “malignant” das instâncias de bio. Compare os valores da sua predição com os valores reais da base.
+
+**Dica:** Para usar todos os atributos de entrada empregue ‘.’ no lugar das variáveis de entrada.
+
+```{r}
+# Carregar o pacote necessario
+library(glmnet)
+
+# Separar os dados em conjunto de treinamento e teste
+set.seed(123) # Definir semente para reproducibilidade
+indices_treino <- sample(1:nrow(bio), 0.7 * nrow(bio)) # 70% dos dados para treinamento
+dados_treino <- bio[indices_treino, ]
+dados_teste <- bio[-indices_treino, ]
+
+# Criar o modelo logístico
+modelo_logistico <- glm(class ~ ., data = dados_treino, family = "binomial")
+
+# Fazer predição com o conjunto de teste
+predicao <- predict(modelo_logistico, newdata = dados_teste, type = "response")
+
+# Converter a probabilidade em classes (0 ou 1)
+predicao_classes <- ifelse(predicao > 0.5, "malignant", "benign")
+
+# Comparar os valores da predição com os valores reais da base
+resultado <- data.frame(Real = dados_teste$class, Predicao = predicao_classes)
+
+# Verificar acertos e erros do modelo
+num_acertos <- sum(resultado$Real == resultado$Predicao)
+num_erros <- sum(resultado$Real != resultado$Predicao)
+percentual_acerto <- num_acertos / nrow(resultado)
+
+# Imprimir resultados
+print("Número de acertos:")
+print(num_acertos)
+
+print("Número de erros:")
+print(num_erros)
+
+print("Percentual de acerto:")
+print(percentual_acerto)
+
+```
