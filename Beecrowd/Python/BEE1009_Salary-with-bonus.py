@@ -11,3 +11,13 @@ The input file contains a text (employee's first name), and two double precision
 Output
 Print the seller's total salary, according to the given example.
 '''
+
+
+def salary_with_bonus(name, salary, sales):
+    salary = salary + sales * 0.15
+
+    return f"TOTAL = R$ {salary:.2f}"
+
+
+result = salary_with_bonus(str(input()), float(input()), float(input()))
+print(result)
