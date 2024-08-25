@@ -21,7 +21,7 @@ def clean_ingredients(dish_name, dish_ingredients):
     followed by the de-duped `set` of ingredients as the second item.
     """
 
-    pass
+    return (dish_name, set(dish_ingredients))
 
 
 def check_drinks(drink_name, drink_ingredients):
@@ -36,8 +36,11 @@ def check_drinks(drink_name, drink_ingredients):
 
     """
 
-    pass
+    drink_ingredients = set(drink_ingredients)
 
+    if drink_ingredients & ALCOHOLS:
+        return f"{drink_name} Cocktail"
+    return f"{drink_name} Mocktail"
 
 def categorize_dish(dish_name, dish_ingredients):
     """Categorize `dish_name` based on `dish_ingredients`.
@@ -52,8 +55,22 @@ def categorize_dish(dish_name, dish_ingredients):
 
     """
 
-    pass
+    categories = {
+        "VEGAN": VEGAN,
+        "VEGETARIAN": VEGETARIAN,
+        "KETO": KETO,
+        "PALEO": PALEO,
+        "OMNIVORE": OMNIVORE,
+        "ALCOHOLS": ALCOHOLS
+    }
 
+    dish_category = ""
+
+    for category, ingredients in categories.items():
+        if dish_ingredients <= ingredients:
+            dish_category = category
+            break
+    return dish_name + ": " + dish_category
 
 def tag_special_ingredients(dish):
     """Compare `dish` ingredients to `SPECIAL_INGREDIENTS`.
@@ -66,7 +83,11 @@ def tag_special_ingredients(dish):
     SPECIAL_INGREDIENTS constant imported from `sets_categories_data.py`.
     """
 
-    pass
+    ingredients_set = set(dish[1])
+
+    special_ingredients = ingredients_set.intersection(SPECIAL_INGREDIENTS)
+
+    return (dish[0], special_ingredients)
 
 
 def compile_ingredients(dishes):
@@ -78,7 +99,12 @@ def compile_ingredients(dishes):
     This function should return a `set` of all ingredients from all listed dishes.
     """
 
-    pass
+    master_list = set()
+
+    for dish in dishes:
+        master_list.update(dish)
+
+    return master_list
 
 
 def separate_appetizers(dishes, appetizers):
@@ -92,7 +118,17 @@ def separate_appetizers(dishes, appetizers):
     Either list could contain duplicates and may require de-duping.
     """
 
-    pass
+    # Converter as listas em conjuntos para remover duplicatas e facilitar a operação de diferença
+    dishes_set = set(dishes)
+    appetizers_set = set(appetizers)
+
+    # Encontrar a diferença entre os conjuntos: pratos que não são aperitivos
+    non_appetizers_set = dishes_set - appetizers_set
+
+    # Converter o conjunto resultante de volta para lista
+    non_appetizers_list = list(non_appetizers_set)
+
+    return non_appetizers_list
 
 
 def singleton_ingredients(dishes, intersection):
@@ -110,4 +146,9 @@ def singleton_ingredients(dishes, intersection):
     The function should return a `set` of ingredients that only appear in a single dish.
     """
 
-    pass
+    singleton_ingredients_set = set()
+
+    for dishe in dishes:
+        singleton_ingredients_set.update(dishe - intersection)
+
+    return singleton_ingredients_set

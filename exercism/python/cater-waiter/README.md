@@ -116,52 +116,48 @@ TypeError: unhashable type: 'set'
 ```
 
 
-## Working with Sets
+## Trabalhando com Conjuntos (Sets)
 
-Sets have methods that generally mimic [mathematical set operations][mathematical-sets].
-Most (_not all_) of these methods have an [operator][operator] equivalent.
-Methods generally take any `iterable` as an argument, while operators require that both sides of the operation are `sets` or `frozensets`.
+Os `sets` possuem métodos que geralmente imitam [operações de conjuntos matemáticos](https://pt.wikipedia.org/wiki/Conjunto_(matem%C3%A1tica)).
+A maioria (mas _não todos_) desses métodos tem um [operador](https://pt.wikipedia.org/wiki/Operador_(matem%C3%A1tica)) equivalente.
+Os métodos geralmente aceitam qualquer `iterable` como argumento, enquanto os operadores exigem que ambos os lados da operação sejam `sets` ou `frozensets`.
 
+### Conjuntos Disjuntos
 
-### Disjoint Sets
-
-The `<set>.isdisjoint(<other_collection>)` method is used to test if a `sets` elements have any overlap with the elements of another `set`.
-The method will accept any `iterable` or `set` as an argument.
-It will return `True` if the two sets have **no elements in common**, `False` if elements are **shared**.
-There is no operator equivalent:
-
+O método `<set>.isdisjoint(<other_collection>)` é usado para testar se os elementos de um `set` têm alguma sobreposição com os elementos de outro `set`.
+O método aceitará qualquer `iterable` ou `set` como argumento.
+Ele retornará `True` se os dois conjuntos **não tiverem elementos em comum** e `False` se houver **elementos compartilhados**.
+Não há um operador equivalente:
 
 ```python
-# Mammals and birds don't share any elements.
+# Mamíferos e pássaros não compartilham elementos.
 >>> birds.isdisjoint(mammals)
 True
 
-# There are also no shared elements between 
-# additional_animals and birds.
+# Não há elementos compartilhados entre 
+# additional_animals e birds.
 >>> birds.isdisjoint(additional_animals)
 True
 
-# Animals and mammals have shared elements.
-# **Note** The first object needs to be a set or converted to a set
-# since .isdisjoint() is a set method.
+# Animais e mamíferos têm elementos compartilhados.
+# **Nota**: O primeiro objeto precisa ser um set ou convertido em um set
+# já que .isdisjoint() é um método de set.
 >>> set(animals).isdisjoint(mammals)
 False
 ```
 
+### Subconjuntos e Superconjuntos
 
-### Subsets and Supersets
-
-`<set>.issubset(<other_collection>)` is used to check if every element in `<set>` is also in `<other_collection>`.
-The operator form is `<set> <= <other_set>`:
-
+`<set>.issubset(<other_collection>)` é usado para verificar se todos os elementos em `<set>` também estão em `<other_collection>`.
+A forma do operador é `<set> <= <other_set>`:
 
 ```python
-# Both mammals and additional_animals are lists.
+# Tanto mammals quanto additional_animals são listas.
 >>> mammals = ['squirrel','dog','cat','cow', 'tiger', 'elephant']
 >>> additional_animals = ['pangolin', 'panda', 'parrot', 
                           'lemur', 'tiger', 'pangolin']
 
-# Animals is a dict.
+# Animals é um dicionário.
 >>> animals = {'chicken': 'white',
                'sparrow': 'grey',
                'eagle': 'brown and white',
@@ -174,32 +170,32 @@ The operator form is `<set> <= <other_set>`:
                'cat': 'grey',
                'squirrel': 'black'}
 
-# Birds is a set.
+# Birds é um set.
 >>> birds = {'crow','sparrow','eagle','chicken', 'albatross'}
 
-# Set methods will take any iterable as an argument.
-# All members of birds are also members of animals.
+# Métodos de set aceitarão qualquer iterável como argumento.
+# Todos os membros de birds também são membros de animals.
 >>> birds.issubset(animals)
 True
 
-# All members of mammals also appear in animals.
-# **Note** The first object needs to be a set or converted to a set
-# since .issubset() is a set method.
+# Todos os membros de mammals também aparecem em animals.
+# **Nota**: O primeiro objeto precisa ser um set ou convertido em um set
+# já que .issubset() é um método de set.
 >>> set(mammals).issubset(animals)
 True
 
-# Both objects need to be sets to use a set operator
+# Ambos os objetos precisam ser sets para usar um operador de set.
 >>> birds <= set(mammals)
 False
 
-# A set is always a loose subset of itself.
+# Um set é sempre um subconjunto de si mesmo.
 >>> set(additional_animals) <= set(additional_animals)
 True
 ```
 
-`<set>.issuperset(<other_collection>)` is the inverse of `.issubset()`.
-It is used to check if every element in `<other_collection>` is also in `<set>`.
-The operator form is `<set> >= <other_set>`:
+`<set>.issuperset(<other_collection>)` é o inverso de `.issubset()`.
+É usado para verificar se todos os elementos em `<other_collection>` também estão em `<set>`.
+A forma do operador é `<set> >= <other_set>`.
 
 
 ```python
@@ -406,17 +402,15 @@ To obtain only items unique to each `set` in the series, intersections between a
 [type-frozenset]: https://docs.python.org/3/library/stdtypes.html#frozenset
 [type-set]: https://docs.python.org/3/library/stdtypes.html#set
 
-## Instructions
+## Instruções
 
-You and your business partners operate a small catering company. You've just agreed to run an event for a local cooking club that features "club favorite" dishes. The club is inexperienced in hosting large events, and needs help with organizing, shopping, prepping and serving. You've decided to write some small Python scripts to speed the whole planning process along.
+Você e seus sócios operam uma pequena empresa de catering. Vocês acabaram de concordar em organizar um evento para um clube de culinária local que apresentará pratos favoritos do clube. O clube não tem muita experiência em organizar grandes eventos e precisa de ajuda para organizar, fazer compras, preparar e servir. Vocês decidiram escrever alguns pequenos scripts em Python para agilizar todo o processo de planejamento.
 
-## 1. Clean up Dish Ingredients
+## 1. Limpar Ingredientes dos Pratos
 
-The event recipes were added from various sources and their ingredients appear to have duplicate (_or more_) entries -- you don't want to end up purchasing excess items!
- Before the shopping and cooking can commence, each dish's ingredient list needs to be "cleaned".
+As receitas do evento foram adicionadas de várias fontes, e os ingredientes aparecem com entradas duplicadas (ou mais) – vocês não querem acabar comprando itens em excesso! Antes de as compras e o preparo começarem, a lista de ingredientes de cada prato precisa ser "limpa".
 
-Implement the `clean_ingredients(<dish_name>, <dish_ingredients>)` function that takes the name of a dish and a `list` of ingredients.
- This function should return a `tuple` with the name of the dish as the first item, followed by the de-duped `set` of ingredients.
+Implemente a função `clean_ingredients(<dish_name>, <dish_ingredients>)` que recebe o nome de um prato e uma `list` de ingredientes. Essa função deve retornar uma `tuple` com o nome do prato como o primeiro item, seguido pelo `set` de ingredientes sem duplicatas.
 
 
 ```python
