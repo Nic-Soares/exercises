@@ -1,36 +1,35 @@
-# RNA Transcription
+# Transcrição de RNA
 
-Welcome to RNA Transcription on Exercism's Python Track.
-If you need help running the tests or submitting your code, check out `HELP.md`.
+Bem-vindo à Transcrição de RNA na trilha de Python do Exercism.
+Se precisar de ajuda para rodar os testes ou enviar seu código, confira o arquivo `HELP.md`.
 
-## Introduction
+## Introdução
 
-You work for a bioengineering company that specializes in developing therapeutic solutions.
+Você trabalha para uma empresa de bioengenharia que se especializa em desenvolver soluções terapêuticas.
 
-Your team has just been given a new project to develop a targeted therapy for a rare type of cancer.
+Sua equipe recebeu um novo projeto para desenvolver uma terapia direcionada para um tipo raro de câncer.
 
 ~~~~exercism/note
-It's all very complicated, but the basic idea is that sometimes people's bodies produce too much of a given protein.
-That can cause all sorts of havoc.
+É tudo muito complicado, mas a ideia básica é que, às vezes, os corpos das pessoas produzem uma quantidade excessiva de uma determinada proteína. Isso pode causar vários problemas.
 
-But if you can create a very specific molecule (called a micro-RNA), it can prevent the protein from being produced.
+Mas se você conseguir criar uma molécula muito específica (chamada micro-RNA), ela pode impedir a produção dessa proteína.
 
-This technique is called [RNA Interference][rnai].
+Essa técnica é chamada de [Interferência de RNA][rnai].
 
 [rnai]: https://admin.acceleratingscience.com/ask-a-scientist/what-is-rnai/
 ~~~~
 
-## Instructions
+## Instruções
 
-Your task is determine the RNA complement of a given DNA sequence.
+Sua tarefa é determinar o complemento de RNA de uma determinada sequência de DNA.
 
-Both DNA and RNA strands are a sequence of nucleotides.
+Tanto o DNA quanto o RNA são cadeias de nucleotídeos.
 
-The four nucleotides found in DNA are adenine (**A**), cytosine (**C**), guanine (**G**) and thymine (**T**).
+Os quatro nucleotídeos encontrados no DNA são adenina (**A**), citosina (**C**), guanina (**G**) e timina (**T**).
 
-The four nucleotides found in RNA are adenine (**A**), cytosine (**C**), guanine (**G**) and uracil (**U**).
+Os quatro nucleotídeos encontrados no RNA são adenina (**A**), citosina (**C**), guanina (**G**) e uracila (**U**).
 
-Given a DNA strand, its transcribed RNA strand is formed by replacing each nucleotide with its complement:
+Dada uma cadeia de DNA, sua cadeia de RNA transcrita é formada substituindo cada nucleotídeo pelo seu complemento:
 
 - `G` -> `C`
 - `C` -> `G`
@@ -38,16 +37,16 @@ Given a DNA strand, its transcribed RNA strand is formed by replacing each nucle
 - `A` -> `U`
 
 ~~~~exercism/note
-If you want to look at how the inputs and outputs are structured, take a look at the examples in the test suite.
+Se quiser ver como as entradas e saídas são estruturadas, dê uma olhada nos exemplos no conjunto de testes.
 ~~~~
 
-## Source
+## Fonte
 
-### Created by
+### Criado por
 
 - @BrianHicks
 
-### Contributed to by
+### Contribuído por
 
 - @behrtam
 - @cmccandless
@@ -67,6 +66,6 @@ If you want to look at how the inputs and outputs are structured, take a look at
 - @tqa236
 - @yawpitch
 
-### Based on
+### Baseado em
 
 Hyperphysics - https://web.archive.org/web/20220408112140/http://hyperphysics.phy-astr.gsu.edu/hbase/Organic/transcription.html
