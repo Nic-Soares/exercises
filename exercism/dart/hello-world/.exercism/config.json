@@ -1,0 +1,26 @@
+{
+  "authors": [
+    "SuperPaintman"
+  ],
+  "contributors": [
+    "rafaelalvessa",
+    "Stargator"
+  ],
+  "files": {
+    "solution": [
+      "lib/hello_world.dart"
+    ],
+    "test": [
+      "test/hello_world_test.dart"
+    ],
+    "example": [
+      ".meta/lib/example.dart"
+    ],
+    "invalidator": [
+      "pubspec.yaml"
+    ]
+  },
+  "blurb": "Exercism's classic introductory exercise. Just say \"Hello, World!\".",
+  "source": "This is an exercise to introduce users to using Exercism",
+  "source_url": "https://en.wikipedia.org/wiki/%22Hello,_world!%22_program"
+}
