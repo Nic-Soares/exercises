@@ -1,5 +1,3 @@
-from curses.ascii import isdigit
-from shlex import join
 def is_valid(isbn):
     # Remover hífens
     isbn = isbn.replace("-", "")
