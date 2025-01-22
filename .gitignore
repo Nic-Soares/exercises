@@ -10,3 +10,27 @@ University/S5_PROB-ESTAT-APLI/A8/*.html
 /venv
 /.venv
 .vscode/
+
+# Ignorar dependências do Node.js
+node_modules/
+
+# Ignorar arquivos de log
+npm-debug.log
+yarn-error.log
+
+# Ignorar arquivos de build/compilação
+dist/
+build/
+
+# Ignorar variáveis de ambiente
+.env
+
+# Ignorar arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar configuração local
+.eslintcache
+
+*.log
+exercism/typescript/hello-world/changes.patch
