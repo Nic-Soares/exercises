@@ -1,3 +1,3 @@
+
 def reverse(text):
-    for char in range(0):
-        
+    return text[::-1]

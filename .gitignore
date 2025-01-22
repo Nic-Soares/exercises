@@ -34,3 +34,5 @@ Thumbs.db
 
 *.log
 exercism/typescript/hello-world/changes.patch
+
+*.patch
