@@ -1,4 +1,6 @@
 /.idea
+/.pytest_cache
+/.ropeproject
 University/S5_PROB-ESTAT-APLI/A1/*.html
 University/S5_PROB-ESTAT-APLI/A2/*.html
 University/S5_PROB-ESTAT-APLI/A3/*.html
@@ -34,5 +36,11 @@ Thumbs.db
 
 *.log
 exercism/typescript/hello-world/changes.patch
+
+#*.patch
+
+*.pyc
+
+*.json
 
 *.patch
