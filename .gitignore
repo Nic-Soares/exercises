@@ -41,6 +41,8 @@ exercism/typescript/hello-world/changes.patch
 
 *.pyc
 
+*.class
+
 *.json
 
 *.patch
