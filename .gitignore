@@ -46,3 +46,11 @@ exercism/typescript/hello-world/changes.patch
 *.json
 
 *.patch
+
+# Ignorar arquivos de compilação do C
+*.o
+*.out
+*.obj
+*.a
+*.so
+*.dSYM/
