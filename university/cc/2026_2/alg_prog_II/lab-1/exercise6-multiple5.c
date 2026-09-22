@@ -1,16 +1,20 @@
+/*
+Escreva um programa em C que receba um valor inteiro e diga se ele é
+múltiplo de 5 (pesquise sobre estrutura condicional em C).
+*/
+
 #include <stdio.h>
 
-int main() {
-    int number;
+int main () 
+{
+  int input_number;
 
-    printf("Enter an integer number: ");
-    scanf("%d", &number);
+  printf("Enter a int number: ");
+  scanf("%d", &input_number);
 
-    if (number % 5 == 0) {
-        printf("%d is a multiple of 5\n", number);
-    } else {
-        printf("%d is not a multiple of 5\n", number);
-    }
-
-    return 0;
+  if (input_number % 5 == 0) {
+    printf("This number is multiple for 5") ;
+  } else {
+    printf("This number is not multiple for 5") ;
+  }
 }

@@ -1,23 +1,25 @@
+/*
+Elon Musk acaba de liberar dez milhões de dólares para Construtora Fonseca
+e Mercadante construir casas populares no Brasil. Cada casa custa o
+equivalente a 150 salários mínimos. Crie um programa em C que leia o valor
+do salário mínimo, o valor do dólar do dia e calcule a quantidade de casas
+possíveis de construir.
+*/
+
 #include <stdio.h>
-
 int main() {
-    double minimum_wage;
-    double dollar_today;
-    double donation_dollars = 10000000.0;
-    double donation_local_currency;
-    double total_minimum_wages;
-    double houses_built;
+  double dolar_value_in_real, elon_donation, min_salary, elon_donation_in_real, only_house_value, qty_houses;
 
-    printf("Enter the minimum wage: ");
-    scanf("%lf", &minimum_wage);
-    printf("Enter today's dollar rate: ");
-    scanf("%lf", &dollar_today);
+  min_salary = 1665.5;
+  only_house_value = min_salary * 150;
+  elon_donation = 10000000.0;
 
-    donation_local_currency = donation_dollars * dollar_today;
-    total_minimum_wages = donation_local_currency / minimum_wage;
-    houses_built = total_minimum_wages / 150.0;
+  printf("Enter dolar value today: ");
+  scanf("%lf", &dolar_value_in_real);
+  
+  elon_donation_in_real = dolar_value_in_real * elon_donation;
+  qty_houses = elon_donation_in_real / only_house_value;
 
-    printf("Number of houses that can be built: %.2f\n", houses_built);
-
-    return 0;
+  printf("Number of houses that can be built: %lf", qty_houses);
+  
 }

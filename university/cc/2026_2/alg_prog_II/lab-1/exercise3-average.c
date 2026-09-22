@@ -1,21 +1,25 @@
+/*
+Crie um programa em C que leia três notas e mostre a média entre elas.
+*/
+
 #include <stdio.h>
 
-int main() {
-    double grade1;
-    double grade2;
-    double grade3;
-    double average;
+int main () 
+{
+  int first, second, third;
+  
+  printf("Enter a first number: ");
+  scanf("%d", &first);
 
-    printf("Enter grade 1: ");
-    scanf("%lf", &grade1);
-    printf("Enter grade 2: ");
-    scanf("%lf", &grade2);
-    printf("Enter grade 3: ");
-    scanf("%lf", &grade3);
+  printf("Enter a second number: ");
+  scanf("%d", &second);
 
-    average = (grade1 + grade2 + grade3) / 3.0;
+  printf("Enter a third number: ");
+  scanf("%d", &third);
 
-    printf("Average: %.2f\n", average);
+  double calc = (double)(first + second + third) / 3;
 
-    return 0;
+  printf("%.2f", calc);
+  
+  return 0;
 }

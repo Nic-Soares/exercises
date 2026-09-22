@@ -1,18 +1,16 @@
+/*
+Uma imobiliária vende apenas terrenos retangulares. Faça um programa em C
+que leia as dimensões de um terreno e exiba a área do terreno.
+*/
+
 #include <stdio.h>
+int main () {
+  double length, width, area;
 
-int main() {
-    double width;
-    double length;
-    double area;
+  printf("Enter length and width (length x width): ");
+  scanf("%lf x %lf", &length, &width);
 
-    printf("Enter the land width: ");
-    scanf("%lf", &width);
-    printf("Enter the land length: ");
-    scanf("%lf", &length);
-
-    area = width * length;
-
-    printf("Land area: %.2f\n", area);
-
-    return 0;
+  area = length * width;
+  
+  printf("%.2f", area);
 }

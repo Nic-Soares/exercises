@@ -1,18 +1,21 @@
+/*
+Crie um programa em C que leia um valor de hora e informe quantos minutos
+se passaram desde o início do dia.
+*/
+
 #include <stdio.h>
 
-int main() {
-    int hour;
-    int minute;
-    int total_minutes;
+int main () 
+{
+  int hour;
+  int minutes;
+  
+  printf("What time is it? ");
+  scanf("%d:%d", &hour, &minutes);
 
-    printf("Enter the hour: ");
-    scanf("%d", &hour);
-    printf("Enter the minute: ");
-    scanf("%d", &minute);
+  int total_minutes = (hour * 60) + minutes;
 
-    total_minutes = hour * 60 + minute;
-
-    printf("Minutes since the start of the day: %d\n", total_minutes);
-
-    return 0;
+  printf("%d", total_minutes);
+  
+  return 0;
 }
