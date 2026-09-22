@@ -1,7 +1,6 @@
 #include "leap.h"
-#include <stdint.h>
 
-bool leap_year(uint16_t year) 
+bool leap_year(int year)
 {
     if (year % 400 == 0) return true;
     if (year % 100 == 0) return false;
