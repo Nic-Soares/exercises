@@ -17,48 +17,32 @@
 #include <stdlib.h>
 #include <time.h>
 
-int getValidGuess() 
-{
-    int guess;
-
-    printf("Enter your guess (between 1 and 100): \n");
-    scanf("%d", &guess);
-
-    while (guess < 1 || guess > 100) {
-        printf("Invalid! Only numbers between 1 and 100, please: \n");
-        scanf("%d", &guess);
-    }
-
-    return guess;
+int drawNumber() {
+  int min = 1, max = 100;
+  return min + rand() % (max - min + 1);
 }
 
-void verifyGuess(int lucky) 
-{
-    int number;
-    
-    do {
-        number = getValidGuess();
-
-        if (number == lucky){
-            printf("Congratulation! You got it right!");
-        } else if (number < lucky) {
-            printf("Você chutou muito baixo! O valor correto é %d.\n", lucky);
-            break;
-        } else {
-            printf("Você chutou muito alto! O valor correto é %d.\n", lucky);
-            break;
-        }
-        
-    } while (number != lucky);
-
+void verifyNumber(int chosenNumber, int luckyNumber) {
+  if (chosenNumber == luckyNumber) {
+    printf("Parabéns!!! Você acertou!");
+  } else if (chosenNumber < luckyNumber) {
+    printf("Você chutou muito baixo! O valor correto é %d", luckyNumber);
+  } else {
+    printf("Você chutou muito alto! O valor correto é %d", luckyNumber);
+  }
 }
 
-int main() 
-{
+int main () {
+  int chosenNumber, luckyNumber;
     srand(time(NULL));
-    int lucky = rand() % 100 + 1;
+  
+  do {
+      printf("Choose your number (1 to 100): \n");
+      scanf("%d", &chosenNumber);
+  } while (chosenNumber < 1 || chosenNumber > 100);
 
-    verifyGuess(lucky);
-
-    return 0;
+  luckyNumber = drawNumber();
+  verifyNumber(chosenNumber, luckyNumber);
+  
+  return 0;
 }

@@ -10,27 +10,26 @@
 
 #include <stdio.h>
 
-void calc(double mediam, double frequency)
-{
-    if (frequency < 75.0) {
-        printf("REPROVADO\n");
-    } else if (mediam >= 7.5) {
-        printf("APROVADO\n");
-    } else {
-        printf("DE EXAME\n");
-    }
+void verifyFrequency (double frequency, double average) {
+  if (frequency < 75) {
+    printf("FAILED");
+  } else if (frequency >= 75 && average >= 7.5) {
+    printf("APPROVED");
+  } else {
+    printf("EXAM");
+  }
 }
 
-int main() {
-    double mediam, frequency;
+int main () {
+  double frequency, average;
 
-    printf("Enter student mediam score (0.0 to 10.0): ");
-    scanf("%lf", &mediam);
+  printf("Enter your class frequency: \n");
+  scanf("%lf", &frequency);
 
-    printf("Enter student frequency (0.0 to 100): ");
-    scanf("%lf", &frequency);
+  printf("Enter your average: \n");
+  scanf("%lf", &average);
 
-    calc( mediam, frequency );
-
-    return 0;
+  verifyFrequency(frequency, average);
+  
+  return 0;
 }

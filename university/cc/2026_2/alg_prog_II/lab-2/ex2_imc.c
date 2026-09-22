@@ -15,23 +15,24 @@
  */
 
 #include <stdio.h>
-#include <math.h>
 
-int main() 
-{
-    double weight;
-    double height;
-    double imc; 
+double calcIMC (double weight, double height) {
+  double calc;
+  calc = weight / (height * height);
+  return calc;
+}
 
-    printf("Enter your weight (in kilograms).\n");
-    scanf("%lf", &weight);
+int main () {
+  double weight, height, imc;
 
-    printf("Enter your height (in metros).\n");
-    scanf("%lf", &height);
-    
-    imc = weight / pow(height, 2);
-    
-    printf("O IMC de uma pessoa com peso %.2f kg e altura %.2f m é igual a %.2f.\n", weight, height, imc);
+  printf("Enter your weight: \n");
+  scanf("%lf", &weight);
 
-    return 0;
+  printf("Enter your height: \n");
+  scanf("%lf", &height);
+
+  imc = calcIMC(weight, height);
+  printf("Your IMC is: %.2lf\n", imc);
+
+  return 0;
 }
