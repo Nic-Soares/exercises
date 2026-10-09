@@ -56,3 +56,9 @@ exercism/typescript/hello-world/changes.patch
 *.dSYM/
 
 *.zip
+
+# C# / Rider
+.idea/
+bin/
+obj/
+*.DotSettings.user
